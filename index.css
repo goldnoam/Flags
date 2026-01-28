@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply transition-colors duration-300 font-sans antialiased;
+    @apply transition-colors duration-500 font-sans antialiased;
     -webkit-tap-highlight-color: transparent;
   }
 }
@@ -19,47 +19,60 @@
     @apply bg-slate-50 text-slate-900;
   }
   .theme-bright .bg-white\/10 { @apply bg-slate-200/50; }
-  .theme-bright .border-white\/10 { @apply border-slate-200; }
+  .theme-bright .bg-white\/5 { @apply bg-slate-200/20; }
+  .theme-bright .border-white\/5, 
+  .theme-bright .border-white\/10,
+  .theme-bright .border-white\/20 { @apply border-slate-200; }
   .theme-bright .text-white { @apply text-slate-900; }
-  .theme-bright .bg-white\/5 { @apply bg-slate-100; }
 
   .theme-colorful {
     background: linear-gradient(135deg, #4338ca 0%, #db2777 100%);
     @apply text-white;
   }
 
-  .font-size-small { font-size: 0.875rem; }
+  .font-size-small { font-size: 0.8rem; }
   .font-size-medium { font-size: 1rem; }
-  .font-size-large { font-size: 1.25rem; }
-
-  .ad-container {
-    @apply min-h-[100px] flex items-center justify-center bg-white/5 rounded-xl my-6 overflow-hidden;
-  }
+  .font-size-large { font-size: 1.2rem; }
 
   .animate-subtle-zoom {
-    animation: subtle-zoom 8s ease-in-out infinite;
+    animation: subtle-zoom 15s ease-in-out infinite;
   }
 
-  .quiz-enter {
-    animation: quiz-enter-anim 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  .animate-fade-in {
+    animation: fade-in 0.4s ease-out forwards;
+  }
+
+  .animate-quiz-enter {
+    animation: quiz-enter 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+
+  .animate-zoom-in {
+    animation: zoom-in 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
   }
 }
 
 @keyframes subtle-zoom {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+  50% { transform: scale(1.08); }
 }
 
-@keyframes quiz-enter-anim {
-  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes quiz-enter {
+  from { opacity: 0; transform: scale(0.9) translateY(40px); }
   to { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-.custom-scrollbar::-webkit-scrollbar {
-  @apply w-1.5;
+@keyframes zoom-in {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
 }
-.custom-scrollbar::-webkit-scrollbar-track {
-  @apply bg-transparent;
+
+.custom-scrollbar::-webkit-scrollbar {
+  @apply w-1;
 }
 .custom-scrollbar::-webkit-scrollbar-thumb {
   @apply bg-white/10 rounded-full;
@@ -67,3 +80,8 @@
 
 [dir="rtl"] .ltr-only { display: none; }
 [dir="ltr"] .rtl-only { display: none; }
+
+/* Handle adblocker spacing */
+.ad-wrapper {
+  min-height: 100px;
+}

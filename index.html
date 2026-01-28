@@ -2,40 +2,47 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>אלוף הדגלים - למידה וחידון דגלי העולם</title>
-    <meta name="description" content="האתר הטוב ביותר ללמידת דגלי מדינות העולם. שחק בחידון, למד במצב עיון ושפר את הידע הגיאוגרפי שלך.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚩</text></svg>">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+    <title>Flag Champion Pro - Learn World Flags</title>
+    <meta name="description" content="The ultimate world flag quiz and study tool. Learn flags of all countries, track your progress, and challenge yourself with multi-language support.">
+    <link rel="icon" href="https://flagcdn.com/w80/il.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e1b4b">
     
     <!-- SEO Schema -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "EducationalApplication",
-      "name": "אלוף הדגלים",
+      "name": "Flag Champion Pro",
       "applicationCategory": "EducationalGame",
       "operatingSystem": "Web",
-      "description": "משחק חידון דגלי העולם - זהו דגלים, למדו על מדינות ושפרו את הידע הכללי שלכם בצורה אינטראקטיבית.",
+      "description": "Interactive world flag learning application with quiz modes, study guides, and multi-language support.",
+      "author": {
+        "@type": "Person",
+        "name": "Noam Gold"
+      },
       "offers": {
         "@type": "Offer",
-        "price": "0"
+        "price": "0",
+        "priceCurrency": "USD"
       }
     }
     </script>
 
-    <!-- Google AdSense - Loaded with async and error handling -->
+    <!-- Google AdSense - Handles blocking gracefully via onerror -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0274741291001288" 
             crossorigin="anonymous"
-            onerror="console.debug('AdSense script blocked by client (AdBlocker)')"></script>
+            onerror="window.adsByGoogleBlocked=true;"></script>
 
     <link rel="stylesheet" href="index.css">
     <script type="importmap">
 {
   "imports": {
-    "react": "https://esm.sh/react@^19.2.4",
-    "react/": "https://esm.sh/react@^19.2.4/",
-    "react-dom": "https://esm.sh/react-dom@^19.2.4",
-    "react-dom/client": "https://esm.sh/react-dom@^19.2.4/client",
+    "react": "https://esm.sh/react@^19.0.0",
+    "react/": "https://esm.sh/react@^19.0.0/",
+    "react-dom": "https://esm.sh/react-dom@^19.0.0",
+    "react-dom/client": "https://esm.sh/react-dom@^19.0.0/client",
     "react-router-dom": "https://esm.sh/react-router-dom@^6.22.3",
     "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
     "react-dom/": "https://esm.sh/react-dom@^19.2.4/",
