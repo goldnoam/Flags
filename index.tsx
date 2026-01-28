@@ -125,7 +125,7 @@ const TRANSLATIONS: Record<string, any> = {
     title: 'Flaggen-Champion', start: 'Start', study: 'Lernen', stats: 'Statistiken', settings: 'Optionen', score: 'Punkte', streak: 'Serie', timeLeft: 'Sek', question: 'Frage', finished: 'Super!', playAgain: 'Nochmal', personalStats: 'Statistik', totalGames: 'Spiele', highScore: 'Bestwert', avgScore: 'Schnitt', totalPoints: 'Gesamt', noGames: 'Keine Spiele.', theme: 'Thema', fontSize: 'Größe', language: 'Sprache', search: 'Suchen...', export: 'Export', share: 'Teilen', clear: 'Löschen', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Zeit um!', copied: 'Kopiert!', adPlaceholder: 'Werbung unterstützt uns',
   },
   es: {
-    title: 'Campeón de Banderas', start: 'Jugar', study: 'Estudiar', stats: 'Estadísticas', settings: 'Ajustes', score: 'Puntos', streak: 'Racha', timeLeft: 'seg', question: 'Pregunta', finished: '¡Muy bien!', playAgain: 'Otra vez', personalStats: 'Mis Stats', totalGames: 'Juegos', highScore: 'Récord', avgScore: 'Media', totalPoints: 'Total', noGames: 'Sin juegos.', theme: 'Tema', fontSize: 'Tamaño', language: 'Idioma', search: 'Buscar...', export: 'Exportar', share: 'Compartir', clear: 'Limpiar', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: '¡Tiempo!', copied: '¡Copiado!', adPlaceholder: 'Publicidad nos apoya',
+    title: 'Campeון de Banderas', start: 'Jugar', study: 'Estudiar', stats: 'Estadísticas', settings: 'Ajustes', score: 'Puntos', streak: 'Racha', timeLeft: 'seg', question: 'Pregunta', finished: '¡Muy bien!', playAgain: 'Otra vez', personalStats: 'Mis Stats', totalGames: 'Juegos', highScore: 'Récord', avgScore: 'Media', totalPoints: 'Total', noGames: 'Sin juegos.', theme: 'Tema', fontSize: 'Tamaño', language: 'Idioma', search: 'Buscar...', export: 'Exportar', share: 'Compartir', clear: 'Limpiar', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: '¡Tiempo!', copied: '¡Copiado!', adPlaceholder: 'Publicidad nos apoya',
   },
   fr: {
     title: 'Champion des Drapeaux', start: 'Jouer', study: 'Étudier', stats: 'Stats', settings: 'Réglages', score: 'Score', streak: 'Série', timeLeft: 'sec', question: 'Question', finished: 'Bravo !', playAgain: 'Rejouer', personalStats: 'Stats', totalGames: 'Jeux', highScore: 'Record', avgScore: 'Moyenne', totalPoints: 'Total', noGames: 'Aucun jeu.', theme: 'Thème', fontSize: 'Taille', language: 'Langue', search: 'Chercher...', export: 'Exporter', share: 'Partager', clear: 'Effacer', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Temps fini !', copied: 'Copié !', adPlaceholder: 'Soutenu par la pub',
@@ -167,11 +167,10 @@ const getStatsData = () => {
 
 // --- Robust Ad Unit ---
 function AdUnit({ lang }: { lang: string }) {
-  const [isBlocked, setIsBlocked] = useState(false);
+  const [isBlocked, setIsBlocked] = useState(window.adsByGoogleBlocked || false);
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   useEffect(() => {
-    // Check if script was already flagged as blocked by the onerror in index.html
     if (window.adsByGoogleBlocked) {
       setIsBlocked(true);
       return;
@@ -179,7 +178,6 @@ function AdUnit({ lang }: { lang: string }) {
 
     const timer = setTimeout(() => {
       try {
-        // If adsbygoogle is present but blocked, or not defined at all
         if (typeof window.adsbygoogle !== 'undefined' && Array.isArray(window.adsbygoogle)) {
            window.adsbygoogle.push({});
         } else {
