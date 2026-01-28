@@ -2,12 +2,12 @@
 import './index.css';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
-import { HashRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { 
   Trophy, CheckCircle2, XCircle, Flag, BarChart3, 
   ArrowRight, Settings, Languages, Type, Sun, Moon, 
   Palette, Search, X, Download, Volume2, BookOpen, Trash2,
-  Sparkles, History, Star
+  Sparkles, History, Star, Share2
 } from 'lucide-react';
 
 // --- Data ---
@@ -126,10 +126,12 @@ const TRANSLATIONS: Record<string, any> = {
     language: 'שפה',
     search: 'חפש מדינה...',
     export: 'ייצוא רשימה',
+    share: 'שתף',
     clear: 'נקה',
     feedback: 'משוב',
     copyright: '© נועם גולד AI 2026',
     timeout: 'נגמר הזמן!',
+    copied: 'הקישור הועתק ללוח!',
   },
   en: {
     title: 'Flag Champion',
@@ -154,10 +156,12 @@ const TRANSLATIONS: Record<string, any> = {
     language: 'Language',
     search: 'Search country...',
     export: 'Export List',
+    share: 'Share',
     clear: 'Clear',
     feedback: 'Feedback',
     copyright: '© Noam Gold AI 2026',
     timeout: 'Time out!',
+    copied: 'Link copied to clipboard!',
   }
 };
 
@@ -248,7 +252,8 @@ function LanguageSwitcher({ lang, setLang }: { lang: string, setLang: (l: string
 }
 
 function StudyMode({ lang }: { lang: string }) {
-  const [search, setSearch] = useState('');
+  const [searchParams, setSearchParams] = useSearchParams();
+  const search = searchParams.get('search') || '';
   const navigate = useNavigate();
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
@@ -260,13 +265,41 @@ function StudyMode({ lang }: { lang: string }) {
   }, [search]);
 
   const handleExport = () => {
-    const data = JSON.stringify(COUNTRIES, null, 2);
+    const data = JSON.stringify(filtered, null, 2);
     const blob = new Blob([data], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
     a.download = 'flag-list.json';
     a.click();
+  };
+
+  const handleShare = async () => {
+    const shareUrl = window.location.href;
+    const shareText = `${t.title} - ${t.study}: ${search || 'All'}`;
+    
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: t.title,
+          text: shareText,
+          url: shareUrl,
+        });
+      } catch (err) {
+        console.debug('Error sharing', err);
+      }
+    } else {
+      await navigator.clipboard.writeText(shareUrl);
+      alert(t.copied);
+    }
+  };
+
+  const updateSearch = (val: string) => {
+    if (val) {
+      setSearchParams({ search: val });
+    } else {
+      setSearchParams({});
+    }
   };
 
   return (
@@ -277,7 +310,10 @@ function StudyMode({ lang }: { lang: string }) {
           <ArrowRight className="ltr-only w-6 h-6 rotate-180" />
         </button>
         <h2 className="text-2xl font-bold">{t.study}</h2>
-        <button onClick={handleExport} className="p-2 bg-blue-500 rounded-full text-white"><Download size={20} /></button>
+        <div className="flex gap-2">
+          <button onClick={handleShare} className="p-2 bg-indigo-500 rounded-full text-white" title={t.share}><Share2 size={20} /></button>
+          <button onClick={handleExport} className="p-2 bg-blue-500 rounded-full text-white" title={t.export}><Download size={20} /></button>
+        </div>
       </div>
 
       <div className="relative group">
@@ -286,11 +322,11 @@ function StudyMode({ lang }: { lang: string }) {
           type="text" 
           placeholder={t.search} 
           value={search}
-          onChange={(e) => setSearch(e.target.value)}
-          onDrop={(e) => { e.preventDefault(); setSearch(e.dataTransfer.getData('text')); }}
+          onChange={(e) => updateSearch(e.target.value)}
+          onDrop={(e) => { e.preventDefault(); updateSearch(e.dataTransfer.getData('text')); }}
           className="w-full py-4 pr-12 pl-4 bg-white/10 rounded-2xl border border-white/10 focus:border-blue-500 outline-none backdrop-blur-sm"
         />
-        {search && <button onClick={() => setSearch('')} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><X size={20} /></button>}
+        {search && <button onClick={() => updateSearch('')} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><X size={20} /></button>}
       </div>
 
       <AdUnit />
