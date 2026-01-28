@@ -8,13 +8,13 @@
   "theme_color": "#1e1b4b",
   "icons": [
     {
-      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f1ee_1f1f1.png",
+      "src": "https://fonts.gstatic.com/s/e/notoemoji/latest/1f1ee_1f1f1/512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/128/emoji_u1f1ee_1f1f1.png",
+      "src": "https://fonts.gstatic.com/s/e/notoemoji/latest/1f1ee_1f1f1/128.png",
       "sizes": "128x128",
       "type": "image/png",
       "purpose": "any"

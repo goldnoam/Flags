@@ -138,31 +138,45 @@ const QUESTION_TIME_LIMIT = 15;
 
 const speak = (text: string, langCode: string) => {
   if ('speechSynthesis' in window) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    const langMap: Record<string, string> = {
-      'he': 'he-IL', 'en': 'en-US', 'zh': 'zh-CN', 'hi': 'hi-IN', 'de': 'de-DE', 'es': 'es-ES', 'fr': 'fr-FR'
-    };
-    utterance.lang = langMap[langCode] || 'en-US';
-    window.speechSynthesis.speak(utterance);
+    try {
+      window.speechSynthesis.cancel(); // Stop current speech to avoid overlapping
+      const utterance = new SpeechSynthesisUtterance(text);
+      const langMap: Record<string, string> = {
+        'he': 'he-IL', 'en': 'en-US', 'zh': 'zh-CN', 'hi': 'hi-IN', 'de': 'de-DE', 'es': 'es-ES', 'fr': 'fr-FR'
+      };
+      utterance.lang = langMap[langCode] || 'en-US';
+      window.speechSynthesis.speak(utterance);
+    } catch (e) {
+      console.warn('Speech synthesis not available or failed:', e);
+    }
   }
 };
 
 const saveGameResult = (score: number) => {
-  const existing = localStorage.getItem(STATS_KEY);
-  const results = existing ? JSON.parse(existing) : [];
-  results.push({ date: Date.now(), score });
-  localStorage.setItem(STATS_KEY, JSON.stringify(results));
+  try {
+    const existing = localStorage.getItem(STATS_KEY);
+    const results = existing ? JSON.parse(existing) : [];
+    results.push({ date: Date.now(), score });
+    localStorage.setItem(STATS_KEY, JSON.stringify(results));
+  } catch (e) {
+    console.error('Failed to save to localStorage:', e);
+  }
 };
 
 const getStatsData = () => {
-  const existing = localStorage.getItem(STATS_KEY);
-  const results = existing ? JSON.parse(existing) : [];
-  if (results.length === 0) return null;
-  const totalGames = results.length;
-  const highestScore = Math.max(...results.map((r: any) => r.score));
-  const totalPoints = results.reduce((acc: number, r: any) => acc + r.score, 0);
-  const averageScore = Math.round(totalPoints / totalGames);
-  return { totalGames, highestScore, averageScore, results };
+  try {
+    const existing = localStorage.getItem(STATS_KEY);
+    const results = existing ? JSON.parse(existing) : [];
+    if (results.length === 0) return null;
+    const totalGames = results.length;
+    const highestScore = Math.max(...results.map((r: any) => r.score));
+    const totalPoints = results.reduce((acc: number, r: any) => acc + r.score, 0);
+    const averageScore = Math.round(totalPoints / totalGames);
+    return { totalGames, highestScore, averageScore, results };
+  } catch (e) {
+    console.warn('Could not retrieve statistics:', e);
+    return null;
+  }
 };
 
 // --- Managed Ad Loader ---
@@ -274,17 +288,25 @@ function StudyMode({ lang }: { lang: string }) {
   ), [search]);
 
   const handleExport = () => {
-    const blob = new Blob([JSON.stringify(filtered, null, 2)], { type: 'application/json' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'flags.json';
-    a.click();
+    try {
+      const blob = new Blob([JSON.stringify(filtered, null, 2)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'flags.json';
+      a.click();
+    } catch (e) {
+      console.error('Export functionality failed:', e);
+    }
   };
 
   const handleShare = async () => {
     const url = window.location.href;
-    if (navigator.share) await navigator.share({ title: t.title, url });
-    else { await navigator.clipboard.writeText(url); alert(t.copied); }
+    try {
+      if (navigator.share) await navigator.share({ title: t.title, url });
+      else { await navigator.clipboard.writeText(url); alert(t.copied); }
+    } catch (e) {
+      console.warn('Social sharing failed:', e);
+    }
   };
 
   return (
@@ -317,7 +339,15 @@ function StudyMode({ lang }: { lang: string }) {
         {filtered.map((c, i) => (
           <React.Fragment key={c.code}>
             <div className="group bg-white/5 p-4 rounded-3xl border border-white/5 text-center transition-all hover:scale-105 active:scale-95">
-              <img src={`https://flagcdn.com/w160/${c.code}.png`} alt={c.name} className="w-full aspect-video object-cover rounded-xl shadow-lg mb-3" loading="lazy" />
+              <img 
+                src={`https://flagcdn.com/w160/${c.code}.png`} 
+                alt={c.name} 
+                className="w-full aspect-video object-cover rounded-xl shadow-lg mb-3" 
+                loading="lazy"
+                onError={(e) => {
+                  (e.target as HTMLImageElement).src = 'https://flagcdn.com/w160/un.png'; // Fallback to UN flag on error
+                }}
+              />
               <div className="font-bold text-sm truncate">{lang === 'en' ? c.en : c.name}</div>
               <button onClick={() => speak(lang === 'en' ? c.en : c.name, lang)} className="mt-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-white/10 rounded-full"><Volume2 size={16} /></button>
             </div>
@@ -433,7 +463,14 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
           </div>
           <div className="aspect-video bg-white/5 rounded-[2.5rem] border border-white/10 p-2 relative overflow-hidden flex items-center justify-center shadow-inner">
              {selectedAnswer === 'TIMEOUT' && <div className="absolute inset-0 bg-red-600/80 backdrop-blur-sm z-50 flex items-center justify-center text-4xl font-black text-white">{t.timeout}</div>}
-             <img src={`https://flagcdn.com/w640/${quizData[currentQuestion].correct.code}.png`} alt="Flag" className="max-h-full max-w-full rounded-2xl shadow-2xl animate-subtle-zoom" />
+             <img 
+               src={`https://flagcdn.com/w640/${quizData[currentQuestion].correct.code}.png`} 
+               alt="Flag" 
+               className="max-h-full max-w-full rounded-2xl shadow-2xl animate-subtle-zoom" 
+               onError={(e) => {
+                 (e.target as HTMLImageElement).src = 'https://flagcdn.com/w640/un.png';
+               }}
+             />
           </div>
           <div className="grid grid-cols-1 gap-3">
              {quizData[currentQuestion].options.map((opt: any) => {
@@ -483,7 +520,7 @@ function StatsView({ lang }: { lang: string }) {
       <div className="flex items-center justify-between">
         <button onClick={() => navigate('/')} className="p-2 hover:bg-white/10 rounded-full"><ArrowRight className="rtl-only" /><ArrowRight className="ltr-only rotate-180" /></button>
         <h2 className="text-xl font-black">{t.personalStats}</h2>
-        <button onClick={() => { localStorage.removeItem(STATS_KEY); window.location.reload(); }} className="p-2 text-red-500 opacity-50 hover:opacity-100"><Trash2 size={20} /></button>
+        <button onClick={() => { try { localStorage.removeItem(STATS_KEY); window.location.reload(); } catch(e) {} }} className="p-2 text-red-500 opacity-50 hover:opacity-100"><Trash2 size={20} /></button>
       </div>
       {!stats ? <div className="p-20 text-center opacity-20"><History size={64} className="mx-auto mb-4" />{t.noGames}</div> : (
         <div className="grid grid-cols-2 gap-4">
