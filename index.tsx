@@ -1,3 +1,4 @@
+
 // Extend window for AdSense and AdBlocker detection
 declare global {
   interface Window {
@@ -89,7 +90,7 @@ const COUNTRIES = [
   { code: 'ae', name: 'איחוד האמירויות', en: 'UAE' },
   { code: 'qa', name: 'קטאר', en: 'Qatar' },
   { code: 'ge', name: 'גאורגיה', en: 'Georgia' },
-  { code: 'pk', name: 'פקיסטן', en: 'Pakistan' },
+  { code: 'pk', name: 'פקיסטൻ', en: 'Pakistan' },
   { code: 'kz', name: 'קזחסטן', en: 'Kazakhstan' },
   { code: 'az', name: "אזרבייג'ן", en: 'Azerbaijan' },
   { code: 'am', name: 'ארמניה', en: 'Armenia' },
@@ -119,7 +120,7 @@ const TRANSLATIONS: Record<string, any> = {
     title: '国旗冠军', start: '开始游戏', study: '学习模式', stats: '统计数据', settings: '设置', score: '得分', streak: '连胜', timeLeft: '秒', question: '问题', finished: '做得好！', playAgain: '再玩一次', personalStats: '个人统计', totalGames: '游戏场数', highScore: '最高分', avgScore: '平均分', totalPoints: '总分', noGames: '还没有记录。', theme: '主题', fontSize: '字体大小', language: '语言', search: '搜索国家...', export: '导出', share: '分享', clear: '清除', feedback: '反馈', copyright: '© Noam Gold AI 2026', timeout: '时间到！', copied: '已复制！', adPlaceholder: '广告支持我们',
   },
   hi: {
-    title: 'ध्वज चैंपियन', start: 'खेल शुरू करें', study: 'अध्ययन मोड', stats: 'आंकड़े', settings: 'सेटिंग्स', score: 'स्कोर', streak: 'लगातार जीत', timeLeft: 'सेकंड', question: 'प्रश्न', finished: 'शाबाश!', playAgain: 'फिर से खेलें', personalStats: 'व्यक्तिगत आंकड़े', totalGames: 'कुल खेल', highScore: 'उच्चतम', avgScore: 'औसत', totalPoints: 'कुल अंक', noGames: 'कोई रिकॉर्ड नहीं।', theme: 'थीמ', fontSize: 'फ़ॉन्ट', language: 'भाषा', search: 'खोजें...', export: 'निर्यात', share: 'साझा करें', clear: 'साफ़ करें', feedback: 'प्रतिक्रिया', copyright: '© Noam Gold AI 2026', timeout: 'समय समाप्त!', copied: 'कॉपी किया गया!', adPlaceholder: 'विज्ञापन हमारा समर्थन करते हैं',
+    title: 'ध्वज चैंपियन', start: 'खेल शुरू करें', study: 'अध्ययन मोड', stats: 'आंकड़े', settings: 'सेटिंग्स', score: 'स्कोर', streak: 'लगातार जीत', timeLeft: 'सेकंड', question: 'प्रश्न', finished: 'शाबाश!', playAgain: 'फिर से खेलें', personalStats: 'व्यक्तिगत आंकड़े', totalGames: 'कुल खेल', highScore: 'उच्चतम', avgScore: 'औसत', totalPoints: 'कुल अंक', noGames: 'कोई रिकॉर्ड नहीं।', theme: 'थीम', fontSize: 'फ़ॉन्ट', language: 'भाषा', search: 'खोजें...', export: 'निर्यात', share: 'साझा करें', clear: 'साफ़ करें', feedback: 'प्रतिक्रिया', copyright: '© Noam Gold AI 2026', timeout: 'समय समाप्त!', copied: 'कॉपी किया गया!', adPlaceholder: 'विज्ञापन हमारा समर्थन करते हैं',
   },
   de: {
     title: 'Flaggen-Champion', start: 'Start', study: 'Lernen', stats: 'Statistiken', settings: 'Optionen', score: 'Punkte', streak: 'Serie', timeLeft: 'Sek', question: 'Frage', finished: 'Super!', playAgain: 'Nochmal', personalStats: 'Statistik', totalGames: 'Spiele', highScore: 'Bestwert', avgScore: 'Schnitt', totalPoints: 'Gesamt', noGames: 'Keine Spiele.', theme: 'Thema', fontSize: 'Größe', language: 'Sprache', search: 'Suchen...', export: 'Export', share: 'Teilen', clear: 'Löschen', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Zeit um!', copied: 'Kopiert!', adPlaceholder: 'Werbung unterstützt uns',
@@ -129,6 +130,15 @@ const TRANSLATIONS: Record<string, any> = {
   },
   fr: {
     title: 'Champion des Drapeaux', start: 'Jouer', study: 'Étudier', stats: 'Stats', settings: 'Réglages', score: 'Score', streak: 'Série', timeLeft: 'sec', question: 'Question', finished: 'Bravo !', playAgain: 'Rejouer', personalStats: 'Stats', totalGames: 'Jeux', highScore: 'Record', avgScore: 'Moyenne', totalPoints: 'Total', noGames: 'Aucun jeu.', theme: 'Thème', fontSize: 'Taille', language: 'Langue', search: 'Chercher...', export: 'Exporter', share: 'Partager', clear: 'Effacer', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Temps fini !', copied: 'Copié !', adPlaceholder: 'Soutenu par la pub',
+  },
+  ru: {
+    title: 'Чемпион Флагов', start: 'Начать игру', study: 'Режим обучения', stats: 'Статистика', settings: 'Настройки', score: 'Счет', streak: 'Серия', timeLeft: 'сек', question: 'Вопрос', finished: 'Молодец!', playAgain: 'Играть снова', personalStats: 'Личная статистика', totalGames: 'Игр', highScore: 'Рекорд', avgScore: 'Средний', totalPoints: 'Всего очков', noGames: 'Игр еще нет.', theme: 'Тема', fontSize: 'Размер шрифта', language: 'Язык', search: 'Поиск...', export: 'Экспорт', share: 'Поделиться', clear: 'Очистить', feedback: 'Отзыв', copyright: '© Ноам Голд AI 2026', timeout: 'Время вышло!', copied: 'Скопировано!', adPlaceholder: 'Реклама поддерживает нас',
+  },
+  pt: {
+    title: 'Campeão das Bandeiras', start: 'Iniciar Jogo', study: 'Modo Estudo', stats: 'Estatísticas', settings: 'Configurações', score: 'Pontos', streak: 'Sequência', timeLeft: 'seg', question: 'Pergunta', finished: 'Muito bem!', playAgain: 'Jogar de novo', personalStats: 'Minhas Estatísticas', totalGames: 'Jogos', highScore: 'Recorde', avgScore: 'Média', totalPoints: 'Total de Pontos', noGames: 'Nenhum jogo ainda.', theme: 'Tema', fontSize: 'Tamanho da fonte', language: 'Idioma', search: 'Buscar país...', export: 'Exportar Lista', share: 'Compartilhar', clear: 'Limpiar', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Tempo esgotado!', copied: 'Copiado!', adPlaceholder: 'Anúncios nos apoiam',
+  },
+  it: {
+    title: 'Campione delle Bandiere', start: 'Inizia Gioco', study: 'Modalità Studio', stats: 'Statistiche', settings: 'Impostazioni', score: 'Punteggio', streak: 'Serie', timeLeft: 'sec', question: 'Domanda', finished: 'Ben fatto!', playAgain: 'Gioca ancora', personalStats: 'Statistiche Personali', totalGames: 'Partite', highScore: 'Record', avgScore: 'Media', totalPoints: 'Punti Totali', noGames: 'Nessuna partita giocata.', theme: 'Tema', fontSize: 'Dimensione carattere', language: 'Lingua', search: 'Cerca paese...', export: 'Esporta', share: 'Condividi', clear: 'Pulisci', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Tempo scaduto!', copied: 'Copiato!', adPlaceholder: 'La pubblicità ci sostiene',
   }
 };
 
@@ -142,7 +152,8 @@ const speak = (text: string, langCode: string) => {
       window.speechSynthesis.cancel(); // Stop current speech to avoid overlapping
       const utterance = new SpeechSynthesisUtterance(text);
       const langMap: Record<string, string> = {
-        'he': 'he-IL', 'en': 'en-US', 'zh': 'zh-CN', 'hi': 'hi-IN', 'de': 'de-DE', 'es': 'es-ES', 'fr': 'fr-FR'
+        'he': 'he-IL', 'en': 'en-US', 'zh': 'zh-CN', 'hi': 'hi-IN', 'de': 'de-DE', 
+        'es': 'es-ES', 'fr': 'fr-FR', 'ru': 'ru-RU', 'pt': 'pt-PT', 'it': 'it-IT'
       };
       utterance.lang = langMap[langCode] || 'en-US';
       window.speechSynthesis.speak(utterance);
@@ -248,7 +259,7 @@ function AdUnit({ lang }: { lang: string }) {
 
 // --- Components ---
 function LanguageSwitcher({ lang, setLang }: { lang: string, setLang: (l: string) => void }) {
-  const langs = ['he', 'en', 'zh', 'hi', 'de', 'es', 'fr'];
+  const langs = ['he', 'en', 'zh', 'hi', 'de', 'es', 'fr', 'ru', 'pt', 'it'];
   return (
     <div className="flex items-center gap-2">
       <Languages size={18} className="opacity-50" />
