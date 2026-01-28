@@ -1,3 +1,4 @@
+
 import './index.css';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -6,7 +7,7 @@ import {
   Trophy, CheckCircle2, XCircle, Flag, BarChart3, 
   ArrowRight, Settings, Languages, Type, Sun, Moon, 
   Palette, Search, X, Download, Volume2, BookOpen, Trash2,
-  Sparkles, History
+  Sparkles, History, Star
 } from 'lucide-react';
 
 // --- Data ---
@@ -482,12 +483,17 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
 
           <div className="grid grid-cols-1 gap-3 relative">
             {selectedAnswer && quizData[currentQuestion].correct.code === selectedAnswer && (
-              <div className="absolute inset-0 z-10 pointer-events-none flex items-center justify-center">
-                <div className="w-full h-full animate-confetti-burst flex justify-center items-center">
-                   <div className="flex gap-2">
-                     {[...Array(5)].map((_, i) => <Sparkles key={i} className="text-yellow-400 animate-pulse" style={{ animationDelay: `${i * 0.1}s` }} />)}
-                   </div>
-                </div>
+              <div className="absolute inset-0 z-50 pointer-events-none flex items-center justify-center overflow-visible">
+                 <div className="animate-star-burst absolute">
+                    <Star size={120} className="text-yellow-400 fill-yellow-400" />
+                 </div>
+                 <div className="animate-confetti-burst absolute">
+                    <div className="flex gap-4">
+                       <Sparkles className="text-white" />
+                       <Sparkles className="text-yellow-300" />
+                       <Sparkles className="text-white" />
+                    </div>
+                 </div>
               </div>
             )}
             {quizData[currentQuestion].options.map((opt: any) => {
@@ -497,9 +503,9 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
               
               if (selectedAnswer) {
                 if (isCorrect) {
-                  btnClass = "bg-green-600 text-white border-green-400 ring-4 ring-green-400/30 animate-correct-pop";
+                  btnClass = "bg-green-600 text-white border-green-400 ring-4 ring-green-400/30 animate-correct-pop shadow-[0_0_20px_rgba(34,197,94,0.3)]";
                 } else if (isSel) {
-                  btnClass = "bg-red-600 text-white border-red-400 animate-incorrect-shake shadow-[0_0_20px_rgba(220,38,38,0.4)]";
+                  btnClass = "bg-red-600 text-white border-red-400 animate-incorrect-shake shadow-[0_0_25px_rgba(220,38,38,0.5)]";
                 } else {
                   btnClass = "opacity-40 bg-white/5 border-transparent scale-[0.98]";
                 }
