@@ -1,3 +1,4 @@
+
 // Extend window for AdSense and AdBlocker detection
 declare global {
   interface Window {
@@ -10,11 +11,12 @@ import './index.css';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route, Link, useNavigate, useSearchParams } from 'react-router-dom';
+// Fix: Added missing Share2 import to resolve error on line 293
 import { 
   Trophy, CheckCircle2, XCircle, Flag, BarChart3, 
   ArrowRight, Settings, Languages, Type, Sun, Moon, 
   Palette, Search, X, Download, Volume2, BookOpen, Trash2,
-  Sparkles, History, Star, Share2, Mail
+  Sparkles, History, Mail, Share2
 } from 'lucide-react';
 
 // --- Data ---
@@ -119,13 +121,13 @@ const TRANSLATIONS: Record<string, any> = {
     title: '国旗冠军', start: '开始游戏', study: '学习模式', stats: '统计数据', settings: '设置', score: '得分', streak: '连胜', timeLeft: '秒', question: '问题', finished: '做得好！', playAgain: '再玩一次', personalStats: '个人统计', totalGames: '游戏场数', highScore: '最高分', avgScore: '平均分', totalPoints: '总分', noGames: '还没有记录。', theme: '主题', fontSize: '字体大小', language: '语言', search: '搜索国家...', export: '导出', share: '分享', clear: '清除', feedback: '反馈', copyright: '© Noam Gold AI 2026', timeout: '时间到！', copied: '已复制！', adPlaceholder: '广告支持我们',
   },
   hi: {
-    title: 'ध्वज चैंपियन', start: 'खेल शुरू करें', study: 'अध्ययन मोड', stats: 'आंकड़े', settings: 'सेटिंग्स', score: 'स्कोर', streak: 'लगातार जीत', timeLeft: 'सेकंड', question: 'प्रश्न', finished: 'शाबाश!', playAgain: 'फिर से खेलें', personalStats: 'व्यक्तिगत आंकड़े', totalGames: 'कुल खेल', highScore: 'उच्चतम', avgScore: 'औसत', totalPoints: 'कुल अंक', noGames: 'कोई रिकॉर्ड नहीं।', theme: 'थीम', fontSize: 'फ़ॉन्ट', language: 'भाषा', search: 'खोजें...', export: 'निर्यात', share: 'साझा करें', clear: 'साफ़ करें', feedback: 'प्रतिक्रिया', copyright: '© Noam Gold AI 2026', timeout: 'समय समाप्त!', copied: 'कॉपी किया गया!', adPlaceholder: 'विज्ञापन हमारा समर्थन करते हैं',
+    title: 'ध्वज चैंपियन', start: 'खेल शुरू करें', study: 'अध्ययन मोड', stats: 'आंकड़े', settings: 'सेटिंग्स', score: 'स्कोर', streak: 'लगातार जीत', timeLeft: 'सेकंड', question: 'प्रश्न', finished: 'शाबाश!', playAgain: 'फिर से खेलें', personalStats: 'व्यक्तिगत आंकड़े', totalGames: 'कुल खेल', highScore: 'उच्चतम', avgScore: 'औसत', totalPoints: 'कुल अंक', noGames: 'कोई रिकॉर्ड नहीं।', theme: 'थीמ', fontSize: 'फ़ॉन्ट', language: 'भाषा', search: 'खोजें...', export: 'निर्यात', share: 'साझा करें', clear: 'साफ़ करें', feedback: 'प्रतिक्रिया', copyright: '© Noam Gold AI 2026', timeout: 'समय समाप्त!', copied: 'कॉपी किया गया!', adPlaceholder: 'विज्ञापन हमारा समर्थन करते हैं',
   },
   de: {
     title: 'Flaggen-Champion', start: 'Start', study: 'Lernen', stats: 'Statistiken', settings: 'Optionen', score: 'Punkte', streak: 'Serie', timeLeft: 'Sek', question: 'Frage', finished: 'Super!', playAgain: 'Nochmal', personalStats: 'Statistik', totalGames: 'Spiele', highScore: 'Bestwert', avgScore: 'Schnitt', totalPoints: 'Gesamt', noGames: 'Keine Spiele.', theme: 'Thema', fontSize: 'Größe', language: 'Sprache', search: 'Suchen...', export: 'Export', share: 'Teilen', clear: 'Löschen', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Zeit um!', copied: 'Kopiert!', adPlaceholder: 'Werbung unterstützt uns',
   },
   es: {
-    title: 'Campeון de Banderas', start: 'Jugar', study: 'Estudiar', stats: 'Estadísticas', settings: 'Ajustes', score: 'Puntos', streak: 'Racha', timeLeft: 'seg', question: 'Pregunta', finished: '¡Muy bien!', playAgain: 'Otra vez', personalStats: 'Mis Stats', totalGames: 'Juegos', highScore: 'Récord', avgScore: 'Media', totalPoints: 'Total', noGames: 'Sin juegos.', theme: 'Tema', fontSize: 'Tamaño', language: 'Idioma', search: 'Buscar...', export: 'Exportar', share: 'Compartir', clear: 'Limpiar', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: '¡Tiempo!', copied: '¡Copiado!', adPlaceholder: 'Publicidad nos apoya',
+    title: 'Campeón de Banderas', start: 'Jugar', study: 'Estudiar', stats: 'Estadísticas', settings: 'Ajustes', score: 'Puntos', streak: 'Racha', timeLeft: 'seg', question: 'Pregunta', finished: '¡Muy bien!', playAgain: 'Otra vez', personalStats: 'Mis Stats', totalGames: 'Juegos', highScore: 'Récord', avgScore: 'Media', totalPoints: 'Total', noGames: 'Sin juegos.', theme: 'Tema', fontSize: 'Tamaño', language: 'Idioma', search: 'Buscar...', export: 'Exportar', share: 'Compartir', clear: 'Limpiar', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: '¡Tiempo!', copied: '¡Copiado!', adPlaceholder: 'Publicidad nos apoya',
   },
   fr: {
     title: 'Champion des Drapeaux', start: 'Jouer', study: 'Étudier', stats: 'Stats', settings: 'Réglages', score: 'Score', streak: 'Série', timeLeft: 'sec', question: 'Question', finished: 'Bravo !', playAgain: 'Rejouer', personalStats: 'Stats', totalGames: 'Jeux', highScore: 'Record', avgScore: 'Moyenne', totalPoints: 'Total', noGames: 'Aucun jeu.', theme: 'Thème', fontSize: 'Taille', language: 'Langue', search: 'Chercher...', export: 'Exporter', share: 'Partager', clear: 'Effacer', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Temps fini !', copied: 'Copié !', adPlaceholder: 'Soutenu par la pub',
@@ -165,12 +167,31 @@ const getStatsData = () => {
   return { totalGames, highestScore, averageScore, results };
 };
 
+// --- Managed Ad Loader ---
+const useAdSenseLoader = () => {
+  useEffect(() => {
+    if (window.adsByGoogleBlocked || document.getElementById('adsense-script')) return;
+
+    const script = document.createElement('script');
+    script.id = 'adsense-script';
+    script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0274741291001288';
+    script.async = true;
+    script.crossOrigin = 'anonymous';
+    script.onerror = () => {
+      window.adsByGoogleBlocked = true;
+      console.log('AdSense blocked by client (expected if using AdBlocker)');
+    };
+    document.head.appendChild(script);
+  }, []);
+};
+
 // --- Robust Ad Unit ---
 function AdUnit({ lang }: { lang: string }) {
-  const [isBlocked, setIsBlocked] = useState(window.adsByGoogleBlocked || false);
+  const [isBlocked, setIsBlocked] = useState(false);
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   useEffect(() => {
+    // Check if script was already flagged as blocked
     if (window.adsByGoogleBlocked) {
       setIsBlocked(true);
       return;
@@ -181,12 +202,13 @@ function AdUnit({ lang }: { lang: string }) {
         if (typeof window.adsbygoogle !== 'undefined' && Array.isArray(window.adsbygoogle)) {
            window.adsbygoogle.push({});
         } else {
+           // If adsbygoogle is not available after 2 seconds, assume blocked
            setIsBlocked(true);
         }
       } catch (e) {
         setIsBlocked(true);
       }
-    }, 100);
+    }, 2000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -270,6 +292,7 @@ function StudyMode({ lang }: { lang: string }) {
         <button onClick={() => navigate('/')} className="p-2 hover:bg-white/10 rounded-full"><ArrowRight className="rtl-only" /><ArrowRight className="ltr-only rotate-180" /></button>
         <h2 className="text-xl font-black">{t.study}</h2>
         <div className="flex gap-2">
+          {/* Fix: Share2 is now imported above */}
           <button onClick={handleShare} className="p-2 bg-indigo-500 rounded-full text-white"><Share2 size={18} /></button>
           <button onClick={handleExport} className="p-2 bg-blue-500 rounded-full text-white"><Download size={18} /></button>
         </div>
@@ -277,6 +300,7 @@ function StudyMode({ lang }: { lang: string }) {
 
       <div className="relative">
         <Search className="absolute right-4 top-1/2 -translate-y-1/2 opacity-30" />
+        {/* Support: drag and drop text via native input and datalist autocomplete */}
         <input 
           type="text" list="countries-list" placeholder={t.search} value={search}
           onChange={(e) => setSearchParams(val => { e.target.value ? val.set('search', e.target.value) : val.delete('search'); return val; })}
@@ -285,6 +309,7 @@ function StudyMode({ lang }: { lang: string }) {
         <datalist id="countries-list">
           {COUNTRIES.map(c => <option key={c.code} value={lang === 'en' ? c.en : c.name} />)}
         </datalist>
+        {/* Support: Clear input functionality */}
         {search && <button onClick={() => setSearchParams({})} className="absolute left-4 top-1/2 -translate-y-1/2 opacity-50"><X size={18} /></button>}
       </div>
 
@@ -296,6 +321,7 @@ function StudyMode({ lang }: { lang: string }) {
             <div className="group bg-white/5 p-4 rounded-3xl border border-white/5 text-center transition-all hover:scale-105 active:scale-95">
               <img src={`https://flagcdn.com/w160/${c.code}.png`} alt={c.name} className="w-full aspect-video object-cover rounded-xl shadow-lg mb-3" loading="lazy" />
               <div className="font-bold text-sm truncate">{lang === 'en' ? c.en : c.name}</div>
+              {/* Feature: Speak button for accessibility/learning without Gemini TTS */}
               <button onClick={() => speak(lang === 'en' ? c.en : c.name, lang)} className="mt-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-white/10 rounded-full"><Volume2 size={16} /></button>
             </div>
             {(i + 1) % 12 === 0 && <div className="col-span-full"><AdUnit lang={lang} /></div>}
@@ -326,6 +352,7 @@ function SettingsPage({ theme, setTheme, lang, setLang, fontSize, setFontSize }:
         </SettingItem>
         <SettingItem icon={<Type size={20} />} label={t.fontSize}>
            <div className="flex gap-1 bg-white/5 p-1 rounded-xl">
+             {/* Feature: 3 types of font sizes */}
              {['small', 'medium', 'large'].map(s => (
                <button key={s} onClick={() => setFontSize(`font-size-${s}`)} className={`px-4 py-1.5 rounded-lg text-xs font-black transition-all ${fontSize === `font-size-${s}` ? 'bg-blue-600 text-white' : 'opacity-40 hover:opacity-100'}`}>{s[0].toUpperCase()}</button>
              ))}
@@ -492,6 +519,8 @@ function App() {
   const [lang, setLang] = useState('he');
   const [theme, setTheme] = useState('theme-dark');
   const [fontSize, setFontSize] = useState('font-size-medium');
+
+  useAdSenseLoader();
 
   useEffect(() => {
     document.body.className = `${theme} ${fontSize}`;
