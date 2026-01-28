@@ -23,8 +23,10 @@
     }
     </script>
 
-    <!-- Google AdSense -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0274741291001288" crossorigin="anonymous"></script>
+    <!-- Google AdSense - Loaded with async and error handling -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0274741291001288" 
+            crossorigin="anonymous"
+            onerror="console.debug('AdSense script blocked by client (AdBlocker)')"></script>
 
     <link rel="stylesheet" href="index.css">
     <script type="importmap">

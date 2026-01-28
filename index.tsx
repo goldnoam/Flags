@@ -1,4 +1,11 @@
 
+// Fix: Add window interface declaration for Google AdSense to avoid TypeScript errors
+declare global {
+  interface Window {
+    adsbygoogle: any[];
+  }
+}
+
 import './index.css';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
@@ -7,7 +14,7 @@ import {
   Trophy, CheckCircle2, XCircle, Flag, BarChart3, 
   ArrowRight, Settings, Languages, Type, Sun, Moon, 
   Palette, Search, X, Download, Volume2, BookOpen, Trash2,
-  Sparkles, History, Star, Share2
+  Sparkles, History, Star, Share2, Mail
 } from 'lucide-react';
 
 // --- Data ---
@@ -132,6 +139,8 @@ const TRANSLATIONS: Record<string, any> = {
     copyright: '© נועם גולד AI 2026',
     timeout: 'נגמר הזמן!',
     copied: 'הקישור הועתק ללוח!',
+    adPlaceholder: 'פרסומת תומכת באתר',
+    seoDesc: 'משחק דגלים מאתגר ללימוד דגלי העולם. שחק, למד ושבור שיאים!',
   },
   en: {
     title: 'Flag Champion',
@@ -162,6 +171,168 @@ const TRANSLATIONS: Record<string, any> = {
     copyright: '© Noam Gold AI 2026',
     timeout: 'Time out!',
     copied: 'Link copied to clipboard!',
+    adPlaceholder: 'Advertisement supports us',
+    seoDesc: 'Challenging flag quiz to learn world flags. Play, learn and beat records!',
+  },
+  zh: {
+    title: '国旗冠军',
+    start: '开始游戏',
+    study: '学习模式',
+    stats: '统计数据',
+    settings: '设置',
+    score: '得分',
+    streak: '连胜',
+    timeLeft: '秒',
+    question: '问题',
+    finished: '做得好！',
+    playAgain: '再玩一次',
+    personalStats: '个人统计',
+    totalGames: '游戏场数',
+    highScore: '最高分',
+    avgScore: '平均分',
+    totalPoints: '总分',
+    noGames: '还没有游戏记录。',
+    theme: '主题',
+    fontSize: '字体大小',
+    language: '语言',
+    search: '搜索国家...',
+    export: '导出列表',
+    share: '分享',
+    clear: '清除',
+    feedback: '反馈',
+    copyright: '© Noam Gold AI 2026',
+    timeout: '时间到！',
+    copied: '链接已复制到剪贴板！',
+    adPlaceholder: '广告支持我们',
+    seoDesc: '学习世界国旗的挑战性国旗测验。玩耍，学习并打破记录！',
+  },
+  hi: {
+    title: 'ध्वज चैंपियन',
+    start: 'खेल शुरू करें',
+    study: 'अध्ययन मोड',
+    stats: 'आंकड़े',
+    settings: 'सेटिंग्स',
+    score: 'स्कोर',
+    streak: 'लगातार जीत',
+    timeLeft: 'सेकंड',
+    question: 'प्रश्न',
+    finished: 'शाबाश!',
+    playAgain: 'फिर से खेलें',
+    personalStats: 'व्यक्तिगत आंकड़े',
+    totalGames: 'कुल खेल',
+    highScore: 'उच्चतम स्कोर',
+    avgScore: 'औसत',
+    totalPoints: 'कुल अंक',
+    noGames: 'अभी तक कोई खेल नहीं खेला गया।',
+    theme: 'थीम',
+    fontSize: 'फ़ॉन्ट आकार',
+    language: 'भाषा',
+    search: 'देश खोजें...',
+    export: 'सूची निर्यात करें',
+    share: 'साझा करें',
+    clear: 'साफ़ करें',
+    feedback: 'प्रतिक्रिया',
+    copyright: '© Noam Gold AI 2026',
+    timeout: 'समय समाप्त!',
+    copied: 'लिंक क्लिपबोर्ड पर कॉपी किया गया!',
+    adPlaceholder: 'विज्ञापन हमारा समर्थन करते हैं',
+    seoDesc: 'विश्व ध्वज सीखने के लिए चुनौतीपूर्ण ध्वज प्रश्नोत्तरी। खेलें, सीखें और रिकॉर्ड तोड़ें!',
+  },
+  de: {
+    title: 'Flaggen-Champion',
+    start: 'Spiel starten',
+    study: 'Lernmodus',
+    stats: 'Statistiken',
+    settings: 'Einstellungen',
+    score: 'Punktzahl',
+    streak: 'Serie',
+    timeLeft: 'Sek',
+    question: 'Frage',
+    finished: 'Gut gemacht!',
+    playAgain: 'Nochmal spielen',
+    personalStats: 'Persönliche Statistik',
+    totalGames: 'Spiele',
+    highScore: 'Bestleistung',
+    avgScore: 'Durchschnitt',
+    totalPoints: 'Gesamtpunkte',
+    noGames: 'Noch keine Spiele gespielt.',
+    theme: 'Thema',
+    fontSize: 'Schriftgröße',
+    language: 'Sprache',
+    search: 'Land suchen...',
+    export: 'Liste exportieren',
+    share: 'Teilen',
+    clear: 'Löschen',
+    feedback: 'Feedback',
+    copyright: '© Noam Gold AI 2026',
+    timeout: 'Zeit abgelaufen!',
+    copied: 'Link in die Zwischenablage kopiert!',
+    adPlaceholder: 'Werbung unterstützt uns',
+    seoDesc: 'Herausforderndes Flaggen-Quiz zum Lernen der Flaggen der Welt. Spielen, lernen und Rekorde brechen!',
+  },
+  es: {
+    title: 'Campeón de Banderas',
+    start: 'Empezar Juego',
+    study: 'Modo de Estudio',
+    stats: 'Estadísticas',
+    settings: 'Configuración',
+    score: 'Puntuación',
+    streak: 'Racha',
+    timeLeft: 'seg',
+    question: 'Pregunta',
+    finished: '¡Bien hecho!',
+    playAgain: 'Jugar de nuevo',
+    personalStats: 'Estadísticas Personales',
+    totalGames: 'Juegos',
+    highScore: 'Puntuación Máxima',
+    avgScore: 'Promedio',
+    totalPoints: 'Puntos Totales',
+    noGames: 'Aún no se han jugado juegos.',
+    theme: 'Tema',
+    fontSize: 'Tamaño de Fuente',
+    language: 'Idioma',
+    search: 'Buscar país...',
+    export: 'Exportar Lista',
+    share: 'Compartir',
+    clear: 'Limpiar',
+    feedback: 'Comentarios',
+    copyright: '© Noam Gold AI 2026',
+    timeout: '¡Se acabó el tiempo!',
+    copied: '¡Enlace copiado al portapapeles!',
+    adPlaceholder: 'La publicidad nos apoya',
+    seoDesc: 'Cuestionario de banderas desafiante para aprender las banderas del mundo. ¡Juega, aprende y rompe récords!',
+  },
+  fr: {
+    title: 'Champion des Drapeaux',
+    start: 'Commencer le Jeu',
+    study: "Mode d'Étude",
+    stats: 'Statistiques',
+    settings: 'Paramètres',
+    score: 'Score',
+    streak: 'Série',
+    timeLeft: 'sec',
+    question: 'Question',
+    finished: 'Bien joué !',
+    playAgain: 'Rejouer',
+    personalStats: 'Stats Personnelles',
+    totalGames: 'Jeux',
+    highScore: 'Meilleur Score',
+    avgScore: 'Moyenne',
+    totalPoints: 'Total des Points',
+    noGames: 'Aucun jeu joué pour le moment.',
+    theme: 'Thème',
+    fontSize: 'Taille de Police',
+    language: 'Langue',
+    search: 'Chercher un pays...',
+    export: 'Exporter la Liste',
+    share: 'Partager',
+    clear: 'Effacer',
+    feedback: 'Commentaires',
+    copyright: '© Noam Gold AI 2026',
+    timeout: 'Temps écoulé !',
+    copied: 'Lien copié dans le presse-papier !',
+    adPlaceholder: 'La publicité nous soutient',
+    seoDesc: 'Quiz de drapeaux stimulant pour apprendre les drapeaux du monde. Jouez, apprenez et battez des records !',
   }
 };
 
@@ -170,10 +341,21 @@ const TRANSLATIONS: Record<string, any> = {
 const STATS_KEY = 'flag_quiz_stats_v2';
 const QUESTION_TIME_LIMIT = 15;
 
-const speak = (text: string) => {
+// TTS function using browser native SpeechSynthesis
+const speak = (text: string, langCode: string) => {
   if ('speechSynthesis' in window) {
     const utterance = new SpeechSynthesisUtterance(text);
-    utterance.lang = 'he-IL';
+    // Map internal language codes to standard speech locales
+    const langMap: Record<string, string> = {
+      'he': 'he-IL',
+      'en': 'en-US',
+      'zh': 'zh-CN',
+      'hi': 'hi-IN',
+      'de': 'de-DE',
+      'es': 'es-ES',
+      'fr': 'fr-FR'
+    };
+    utterance.lang = langMap[langCode] || 'en-US';
     utterance.rate = 1;
     window.speechSynthesis.speak(utterance);
   }
@@ -199,24 +381,39 @@ const getStatsData = () => {
 
 // --- AdSense Component ---
 
-function AdUnit({ slot }: { slot?: string }) {
+function AdUnit({ slot, lang }: { slot?: string, lang: string }) {
+  const [isBlocked, setIsBlocked] = useState(false);
+  const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+
   useEffect(() => {
     try {
-      // @ts-ignore
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      // Correctly access window property after global declaration
+      const ads = window.adsbygoogle || [];
+      if (window.adsbygoogle) {
+        ads.push({});
+      } else {
+        setIsBlocked(true);
+      }
     } catch (e) {
-      console.debug('AdSense pending or blocked');
+      console.debug('AdSense initialization failed (likely blocked)');
+      setIsBlocked(true);
     }
   }, []);
 
   return (
-    <div className="ad-container">
-      <ins className="adsbygoogle"
-           style={{ display: 'block', width: '100%' }}
-           data-ad-client="ca-pub-0274741291001288"
-           data-ad-slot={slot || "default-slot"}
-           data-ad-format="auto"
-           data-full-width-responsive="true"></ins>
+    <div className="ad-container relative min-h-[100px] flex items-center justify-center bg-white/5 rounded-xl border border-white/5 my-6 overflow-hidden" aria-hidden="true">
+      {!isBlocked ? (
+        <ins className="adsbygoogle"
+             style={{ display: 'block', width: '100%' }}
+             data-ad-client="ca-pub-0274741291001288"
+             data-ad-slot={slot || "default-slot"}
+             data-ad-format="auto"
+             data-full-width-responsive="true"></ins>
+      ) : (
+        <div className="text-[10px] uppercase tracking-widest opacity-20 font-bold select-none text-center p-4">
+          {t.adPlaceholder}
+        </div>
+      )}
     </div>
   );
 }
@@ -236,7 +433,7 @@ function ThemeToggle({ theme, setTheme }: { theme: string, setTheme: (t: string)
 }
 
 function LanguageSwitcher({ lang, setLang }: { lang: string, setLang: (l: string) => void }) {
-  const langs = ['he', 'en'];
+  const langs = ['he', 'en', 'zh', 'hi', 'de', 'es', 'fr'];
   return (
     <div className="flex gap-2">
       <Languages size={20} />
@@ -244,6 +441,7 @@ function LanguageSwitcher({ lang, setLang }: { lang: string, setLang: (l: string
         value={lang} 
         onChange={(e) => setLang(e.target.value)}
         className="bg-transparent border-none text-sm outline-none cursor-pointer font-bold"
+        aria-label="Select Language"
       >
         {langs.map(l => <option key={l} value={l} className="bg-slate-800 text-white">{l.toUpperCase()}</option>)}
       </select>
@@ -305,14 +503,14 @@ function StudyMode({ lang }: { lang: string }) {
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex items-center justify-between mb-4">
-        <button onClick={() => navigate('/')} className="p-2 hover:bg-white/10 rounded-full">
+        <button onClick={() => navigate('/')} className="p-2 hover:bg-white/10 rounded-full" aria-label="Go Back">
           <ArrowRight className="rtl-only w-6 h-6" />
           <ArrowRight className="ltr-only w-6 h-6 rotate-180" />
         </button>
         <h2 className="text-2xl font-bold">{t.study}</h2>
         <div className="flex gap-2">
-          <button onClick={handleShare} className="p-2 bg-indigo-500 rounded-full text-white" title={t.share}><Share2 size={20} /></button>
-          <button onClick={handleExport} className="p-2 bg-blue-500 rounded-full text-white" title={t.export}><Download size={20} /></button>
+          <button onClick={handleShare} className="p-2 bg-indigo-500 rounded-full text-white" title={t.share} aria-label={t.share}><Share2 size={20} /></button>
+          <button onClick={handleExport} className="p-2 bg-blue-500 rounded-full text-white" title={t.export} aria-label={t.export}><Download size={20} /></button>
         </div>
       </div>
 
@@ -320,38 +518,45 @@ function StudyMode({ lang }: { lang: string }) {
         <Search className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400" />
         <input 
           type="text" 
+          list="countries-list"
           placeholder={t.search} 
           value={search}
           onChange={(e) => updateSearch(e.target.value)}
           onDrop={(e) => { e.preventDefault(); updateSearch(e.dataTransfer.getData('text')); }}
           className="w-full py-4 pr-12 pl-4 bg-white/10 rounded-2xl border border-white/10 focus:border-blue-500 outline-none backdrop-blur-sm"
+          aria-label={t.search}
         />
-        {search && <button onClick={() => updateSearch('')} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><X size={20} /></button>}
+        <datalist id="countries-list">
+          {COUNTRIES.map(c => <option key={c.code} value={lang === 'en' ? c.en : c.name} />)}
+        </datalist>
+        {search && <button onClick={() => updateSearch('')} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400" aria-label={t.clear}><X size={20} /></button>}
       </div>
 
-      <AdUnit />
+      <AdUnit lang={lang} />
 
-      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-4" role="list">
         {filtered.map((c, index) => (
           <React.Fragment key={c.code}>
-            <div className="bg-white/5 p-4 rounded-2xl border border-white/10 text-center hover:scale-105 transition-transform group backdrop-blur-sm">
+            <div className="bg-white/5 p-4 rounded-2xl border border-white/10 text-center hover:scale-105 transition-transform group backdrop-blur-sm" role="listitem">
               <img 
                 src={`https://flagcdn.com/w160/${c.code}.png`} 
                 alt={c.name} 
                 className="w-full aspect-[3/2] object-cover rounded shadow-md mb-2"
+                loading="lazy"
               />
               <div className="font-bold text-sm">
                 {lang === 'en' ? c.en : c.name} 
                 <span className="opacity-40 ml-1 text-[10px] uppercase">({c.code})</span>
               </div>
               <button 
-                onClick={() => speak(c.name)} 
+                onClick={() => speak(lang === 'en' ? c.en : c.name, lang)} 
                 className="mt-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-blue-400/10 rounded-full"
+                aria-label={`Listen to ${c.name}`}
               >
                 <Volume2 size={16} />
               </button>
             </div>
-            {(index + 1) % 12 === 0 && <div className="col-span-full"><AdUnit /></div>}
+            {(index + 1) % 12 === 0 && <div className="col-span-full"><AdUnit lang={lang} /></div>}
           </React.Fragment>
         ))}
       </div>
@@ -370,7 +575,7 @@ function SettingsPage({
   return (
     <div className="space-y-8 animate-in fade-in duration-500">
        <div className="flex items-center justify-between">
-        <button onClick={() => navigate('/')} className="p-2 hover:bg-white/10 rounded-full">
+        <button onClick={() => navigate('/')} className="p-2 hover:bg-white/10 rounded-full" aria-label="Go Back">
           <ArrowRight className="rtl-only w-6 h-6" />
           <ArrowRight className="ltr-only w-6 h-6 rotate-180" />
         </button>
@@ -382,9 +587,9 @@ function SettingsPage({
         <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
           <div className="flex items-center gap-3"><Palette /> <span>{t.theme}</span></div>
           <div className="flex gap-2">
-            <button onClick={() => setTheme('theme-dark')} className={`w-8 h-8 rounded-full bg-slate-900 border ${theme === 'theme-dark' ? 'border-blue-500 ring-2' : 'border-transparent'}`} />
-            <button onClick={() => setTheme('theme-bright')} className={`w-8 h-8 rounded-full bg-white border ${theme === 'theme-bright' ? 'border-blue-500 ring-2' : 'border-transparent'}`} />
-            <button onClick={() => setTheme('theme-colorful')} className={`w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-indigo-500 border ${theme === 'theme-colorful' ? 'border-blue-500 ring-2' : 'border-transparent'}`} />
+            <button onClick={() => setTheme('theme-dark')} aria-label="Dark Theme" className={`w-8 h-8 rounded-full bg-slate-900 border ${theme === 'theme-dark' ? 'border-blue-500 ring-2' : 'border-transparent'}`} />
+            <button onClick={() => setTheme('theme-bright')} aria-label="Bright Theme" className={`w-8 h-8 rounded-full bg-white border ${theme === 'theme-bright' ? 'border-blue-500 ring-2' : 'border-transparent'}`} />
+            <button onClick={() => setTheme('theme-colorful')} aria-label="Colorful Theme" className={`w-8 h-8 rounded-full bg-gradient-to-tr from-pink-500 to-indigo-500 border ${theme === 'theme-colorful' ? 'border-blue-500 ring-2' : 'border-transparent'}`} />
           </div>
         </div>
 
@@ -395,7 +600,7 @@ function SettingsPage({
               <button 
                 key={sz}
                 onClick={() => setFontSize(`font-size-${sz}`)} 
-                className={`px-3 py-1 rounded-lg border font-bold ${fontSize === `font-size-${sz}` ? 'bg-blue-500 text-white border-blue-400' : 'bg-white/10 border-transparent'}`}
+                className={`px-3 py-1 rounded-lg border font-bold transition-all ${fontSize === `font-size-${sz}` ? 'bg-blue-500 text-white border-blue-400' : 'bg-white/10 border-transparent hover:bg-white/20'}`}
               >
                 {sz.charAt(0).toUpperCase()}
               </button>
@@ -494,7 +699,7 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
               <button onClick={() => navigate('/stats')} className="flex-1 py-4 bg-white/10 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/20"><BarChart3 size={20} /> {t.stats}</button>
             </div>
           </div>
-          <AdUnit />
+          <AdUnit lang={lang} />
         </div>
       )}
 
@@ -551,11 +756,12 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
                 <button 
                   key={opt.code} 
                   disabled={!!selectedAnswer}
-                  onClick={() => { handleAnswer(opt.code); speak(opt.name); }}
+                  onClick={() => { handleAnswer(opt.code); speak(lang === 'en' ? opt.en : opt.name, lang); }}
                   className={`w-full p-5 rounded-2xl border text-xl font-bold transition-all flex justify-between items-center backdrop-blur-sm ${btnClass}`}
+                  aria-label={lang === 'en' ? opt.en : opt.name}
                 >
                   <div className="flex items-center gap-4">
-                    {selectedAnswer && <img src={`https://flagcdn.com/w40/${opt.code}.png`} className="w-8 h-6 rounded shadow-sm" alt="" />}
+                    {selectedAnswer && <img src={`https://flagcdn.com/w40/${opt.code}.png`} className="w-8 h-6 rounded shadow-sm" alt="" loading="lazy" />}
                     <span>{lang === 'en' ? opt.en : opt.name}</span>
                   </div>
                   <div className="flex items-center">
@@ -582,7 +788,7 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
             <button onClick={startGame} className="w-full py-5 bg-blue-600 text-white rounded-3xl font-black text-2xl hover:bg-blue-500 transition-all transform hover:scale-105 active:scale-95 shadow-xl">{t.playAgain}</button>
             <button onClick={() => navigate('/stats')} className="w-full py-4 bg-white/10 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/20">{t.stats}</button>
           </div>
-          <AdUnit />
+          <AdUnit lang={lang} />
         </div>
       )}
     </div>
@@ -600,25 +806,47 @@ function App() {
     document.body.className = `${theme} ${fontSize}`;
     document.documentElement.dir = lang === 'he' ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
+    
+    // SEO & accessibility updates
+    const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
+    document.title = t.title;
+    
+    // Update meta description for SEO
+    let metaDesc = document.querySelector('meta[name="description"]');
+    if (!metaDesc) {
+      metaDesc = document.createElement('meta');
+      metaDesc.setAttribute('name', 'description');
+      document.head.appendChild(metaDesc);
+    }
+    metaDesc.setAttribute('content', t.seoDesc);
+
+    // Favicon support
+    let link = document.querySelector("link[rel*='icon']") as HTMLLinkElement;
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.head.appendChild(link);
+    }
+    link.href = 'https://flagcdn.com/il.png'; // Use a default flag as favicon
   }, [theme, fontSize, lang]);
 
   return (
     <HashRouter>
       <div className="max-w-xl mx-auto px-4 py-8 pb-32 min-h-screen flex flex-col">
         <header className="flex justify-between items-center mb-10 bg-white/10 p-4 rounded-3xl backdrop-blur-xl border border-white/20 sticky top-4 z-50">
-          <Link to="/" className="flex items-center gap-2 group">
+          <Link to="/" className="flex items-center gap-2 group" aria-label="Home">
              <div className="bg-blue-600 p-2 rounded-xl group-hover:rotate-12 transition-transform text-white"><Flag size={24} /></div>
              <h1 className="text-xl font-black">{TRANSLATIONS[lang]?.title || 'Flags'}</h1>
           </Link>
           <div className="flex items-center gap-3">
-            <Link to="/settings" className="p-2 hover:bg-white/10 rounded-full transition-colors"><Settings size={20} /></Link>
+            <Link to="/settings" className="p-2 hover:bg-white/10 rounded-full transition-colors" aria-label="Settings"><Settings size={20} /></Link>
             <ThemeToggle theme={theme} setTheme={setTheme} />
           </div>
         </header>
 
-        <AdUnit />
+        <AdUnit lang={lang} />
 
-        <main className="flex-grow">
+        <main className="flex-grow" role="main">
           <Routes>
             <Route path="/" element={<QuizGame lang={lang} score={score} setScore={setScore} streak={streak} setStreak={setStreak} />} />
             <Route path="/study" element={<StudyMode lang={lang} />} />
@@ -627,13 +855,15 @@ function App() {
           </Routes>
         </main>
 
-        <footer className="mt-20 border-t border-white/10 pt-10 text-center space-y-4 opacity-50">
-           <div className="flex justify-center gap-6 text-sm">
-              <a href="mailto:goldnoamai@gmail.com" className="hover:text-blue-400">{TRANSLATIONS[lang]?.feedback}</a>
-              <p>{TRANSLATIONS[lang]?.copyright}</p>
+        <footer className="mt-20 border-t border-white/10 pt-10 text-center space-y-4 opacity-70">
+           <div className="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-10 text-sm">
+              <a href="mailto:goldnoamai@gmail.com" className="hover:text-blue-400 flex items-center gap-2 transition-colors">
+                <Mail size={16} /> {TRANSLATIONS[lang]?.feedback}
+              </a>
+              <p className="font-bold">{TRANSLATIONS[lang]?.copyright}</p>
            </div>
            
-           <AdUnit />
+           <AdUnit lang={lang} />
         </footer>
       </div>
     </HashRouter>
@@ -646,7 +876,8 @@ function StatsView({ lang }: { lang: string }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   const clearStats = () => {
-    if (confirm('בטוחים שרוצים למחוק הכל?')) {
+    const confirmMsg = lang === 'he' ? 'בטוחים שרוצים למחוק הכל?' : 'Are you sure you want to clear all stats?';
+    if (confirm(confirmMsg)) {
       localStorage.removeItem(STATS_KEY);
       window.location.reload();
     }
@@ -655,12 +886,12 @@ function StatsView({ lang }: { lang: string }) {
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       <div className="flex items-center justify-between mb-4">
-        <button onClick={() => navigate('/')} className="p-2 hover:bg-white/10 rounded-full">
+        <button onClick={() => navigate('/')} className="p-2 hover:bg-white/10 rounded-full" aria-label="Go Back">
            <ArrowRight className="rtl-only w-6 h-6" />
            <ArrowRight className="ltr-only w-6 h-6 rotate-180" />
         </button>
         <h2 className="text-2xl font-bold">{t.personalStats}</h2>
-        <button onClick={clearStats} className="p-2 text-red-400 hover:bg-red-400/10 rounded-full"><Trash2 size={20} /></button>
+        <button onClick={clearStats} className="p-2 text-red-400 hover:bg-red-400/10 rounded-full" aria-label={t.clear}><Trash2 size={20} /></button>
       </div>
 
       {!stats ? (
