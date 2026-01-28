@@ -1,4 +1,3 @@
-
 // Extend window for AdSense and AdBlocker detection
 declare global {
   interface Window {
@@ -11,7 +10,6 @@ import './index.css';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route, Link, useNavigate, useSearchParams } from 'react-router-dom';
-// Fix: Added missing Share2 import to resolve error on line 293
 import { 
   Trophy, CheckCircle2, XCircle, Flag, BarChart3, 
   ArrowRight, Settings, Languages, Type, Sun, Moon, 
@@ -172,6 +170,9 @@ const useAdSenseLoader = () => {
   useEffect(() => {
     if (window.adsByGoogleBlocked || document.getElementById('adsense-script')) return;
 
+    // Initialize the adsbygoogle array safely
+    window.adsbygoogle = window.adsbygoogle || [];
+
     const script = document.createElement('script');
     script.id = 'adsense-script';
     script.src = 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0274741291001288';
@@ -179,7 +180,7 @@ const useAdSenseLoader = () => {
     script.crossOrigin = 'anonymous';
     script.onerror = () => {
       window.adsByGoogleBlocked = true;
-      console.log('AdSense blocked by client (expected if using AdBlocker)');
+      // AdSense blocked by client (expected if using AdBlocker) - handled silently
     };
     document.head.appendChild(script);
   }, []);
@@ -187,11 +188,11 @@ const useAdSenseLoader = () => {
 
 // --- Robust Ad Unit ---
 function AdUnit({ lang }: { lang: string }) {
-  const [isBlocked, setIsBlocked] = useState(false);
+  const [isBlocked, setIsBlocked] = useState(window.adsByGoogleBlocked || false);
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   useEffect(() => {
-    // Check if script was already flagged as blocked
+    // Proactively check if script was already flagged as blocked
     if (window.adsByGoogleBlocked) {
       setIsBlocked(true);
       return;
@@ -202,7 +203,7 @@ function AdUnit({ lang }: { lang: string }) {
         if (typeof window.adsbygoogle !== 'undefined' && Array.isArray(window.adsbygoogle)) {
            window.adsbygoogle.push({});
         } else {
-           // If adsbygoogle is not available after 2 seconds, assume blocked
+           // If adsbygoogle is not available after delay, assume blocked
            setIsBlocked(true);
         }
       } catch (e) {
@@ -292,7 +293,6 @@ function StudyMode({ lang }: { lang: string }) {
         <button onClick={() => navigate('/')} className="p-2 hover:bg-white/10 rounded-full"><ArrowRight className="rtl-only" /><ArrowRight className="ltr-only rotate-180" /></button>
         <h2 className="text-xl font-black">{t.study}</h2>
         <div className="flex gap-2">
-          {/* Fix: Share2 is now imported above */}
           <button onClick={handleShare} className="p-2 bg-indigo-500 rounded-full text-white"><Share2 size={18} /></button>
           <button onClick={handleExport} className="p-2 bg-blue-500 rounded-full text-white"><Download size={18} /></button>
         </div>
@@ -300,7 +300,6 @@ function StudyMode({ lang }: { lang: string }) {
 
       <div className="relative">
         <Search className="absolute right-4 top-1/2 -translate-y-1/2 opacity-30" />
-        {/* Support: drag and drop text via native input and datalist autocomplete */}
         <input 
           type="text" list="countries-list" placeholder={t.search} value={search}
           onChange={(e) => setSearchParams(val => { e.target.value ? val.set('search', e.target.value) : val.delete('search'); return val; })}
@@ -309,7 +308,6 @@ function StudyMode({ lang }: { lang: string }) {
         <datalist id="countries-list">
           {COUNTRIES.map(c => <option key={c.code} value={lang === 'en' ? c.en : c.name} />)}
         </datalist>
-        {/* Support: Clear input functionality */}
         {search && <button onClick={() => setSearchParams({})} className="absolute left-4 top-1/2 -translate-y-1/2 opacity-50"><X size={18} /></button>}
       </div>
 
@@ -321,7 +319,6 @@ function StudyMode({ lang }: { lang: string }) {
             <div className="group bg-white/5 p-4 rounded-3xl border border-white/5 text-center transition-all hover:scale-105 active:scale-95">
               <img src={`https://flagcdn.com/w160/${c.code}.png`} alt={c.name} className="w-full aspect-video object-cover rounded-xl shadow-lg mb-3" loading="lazy" />
               <div className="font-bold text-sm truncate">{lang === 'en' ? c.en : c.name}</div>
-              {/* Feature: Speak button for accessibility/learning without Gemini TTS */}
               <button onClick={() => speak(lang === 'en' ? c.en : c.name, lang)} className="mt-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-white/10 rounded-full"><Volume2 size={16} /></button>
             </div>
             {(i + 1) % 12 === 0 && <div className="col-span-full"><AdUnit lang={lang} /></div>}
@@ -352,7 +349,6 @@ function SettingsPage({ theme, setTheme, lang, setLang, fontSize, setFontSize }:
         </SettingItem>
         <SettingItem icon={<Type size={20} />} label={t.fontSize}>
            <div className="flex gap-1 bg-white/5 p-1 rounded-xl">
-             {/* Feature: 3 types of font sizes */}
              {['small', 'medium', 'large'].map(s => (
                <button key={s} onClick={() => setFontSize(`font-size-${s}`)} className={`px-4 py-1.5 rounded-lg text-xs font-black transition-all ${fontSize === `font-size-${s}` ? 'bg-blue-600 text-white' : 'opacity-40 hover:opacity-100'}`}>{s[0].toUpperCase()}</button>
              ))}
