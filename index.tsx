@@ -89,7 +89,7 @@ const COUNTRIES = [
   { code: 'ae', name: 'איחוד האמירויות', en: 'UAE' },
   { code: 'qa', name: 'קטאר', en: 'Qatar' },
   { code: 'ge', name: 'גאורגיה', en: 'Georgia' },
-  { code: 'pk', name: 'פקיסטൻ', en: 'Pakistan' },
+  { code: 'pk', name: 'פקיסטן', en: 'Pakistan' },
   { code: 'kz', name: 'קזחסטן', en: 'Kazakhstan' },
   { code: 'az', name: "אזרבייג'ן", en: 'Azerbaijan' },
   { code: 'am', name: 'ארמניה', en: 'Armenia' },
@@ -167,10 +167,11 @@ const getStatsData = () => {
 
 // --- Robust Ad Unit ---
 function AdUnit({ lang }: { lang: string }) {
-  const [isBlocked, setIsBlocked] = useState(window.adsByGoogleBlocked || false);
+  const [isBlocked, setIsBlocked] = useState(false);
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   useEffect(() => {
+    // Check if script was already flagged as blocked by the onerror in index.html
     if (window.adsByGoogleBlocked) {
       setIsBlocked(true);
       return;
@@ -178,7 +179,8 @@ function AdUnit({ lang }: { lang: string }) {
 
     const timer = setTimeout(() => {
       try {
-        if (window.adsbygoogle && typeof window.adsbygoogle === 'object') {
+        // If adsbygoogle is present but blocked, or not defined at all
+        if (typeof window.adsbygoogle !== 'undefined' && Array.isArray(window.adsbygoogle)) {
            window.adsbygoogle.push({});
         } else {
            setIsBlocked(true);
@@ -186,7 +188,7 @@ function AdUnit({ lang }: { lang: string }) {
       } catch (e) {
         setIsBlocked(true);
       }
-    }, 200);
+    }, 100);
 
     return () => clearTimeout(timer);
   }, []);
@@ -209,7 +211,7 @@ function AdUnit({ lang }: { lang: string }) {
   );
 }
 
-// --- Multi-Language Switcher ---
+// --- Components ---
 function LanguageSwitcher({ lang, setLang }: { lang: string, setLang: (l: string) => void }) {
   const langs = ['he', 'en', 'zh', 'hi', 'de', 'es', 'fr'];
   return (
@@ -240,7 +242,6 @@ function ThemeToggle({ theme, setTheme }: any) {
   );
 }
 
-// --- Main Pages ---
 function StudyMode({ lang }: { lang: string }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const search = searchParams.get('search') || '';
