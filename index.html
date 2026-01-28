@@ -21,19 +21,14 @@
       "author": {
         "@type": "Person",
         "name": "Noam Gold"
-      },
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
       }
     }
     </script>
 
-    <!-- Google AdSense - Handles blocking gracefully via onerror -->
+    <!-- Google AdSense - Handles blocking gracefully -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0274741291001288" 
             crossorigin="anonymous"
-            onerror="window.adsByGoogleBlocked=true;"></script>
+            onerror="window.adsByGoogleBlocked=true; console.log('AdSense blocked by client settings');"></script>
 
     <link rel="stylesheet" href="index.css">
     <script type="importmap">

@@ -2,15 +2,22 @@
   "name": "Flag Champion Pro",
   "short_name": "Flags",
   "description": "Learn world flags through interactive quizzes and study mode.",
-  "start_url": ".",
+  "start_url": "./",
   "display": "standalone",
   "background_color": "#1e1b4b",
   "theme_color": "#1e1b4b",
   "icons": [
     {
-      "src": "https://flagcdn.com/w160/il.png",
-      "sizes": "160x160",
-      "type": "image/png"
+      "src": "https://flagcdn.com/w320/il.png",
+      "sizes": "320x213",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/197/197577.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
     }
   ]
 }

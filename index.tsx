@@ -89,7 +89,7 @@ const COUNTRIES = [
   { code: 'ae', name: 'איחוד האמירויות', en: 'UAE' },
   { code: 'qa', name: 'קטאר', en: 'Qatar' },
   { code: 'ge', name: 'גאורגיה', en: 'Georgia' },
-  { code: 'pk', name: 'פקיסטן', en: 'Pakistan' },
+  { code: 'pk', name: 'פקיסטൻ', en: 'Pakistan' },
   { code: 'kz', name: 'קזחסטן', en: 'Kazakhstan' },
   { code: 'az', name: "אזרבייג'ן", en: 'Azerbaijan' },
   { code: 'am', name: 'ארמניה', en: 'Armenia' },
@@ -116,19 +116,19 @@ const TRANSLATIONS: Record<string, any> = {
     title: 'Flag Champion', start: 'Start Game', study: 'Study Mode', stats: 'Statistics', settings: 'Settings', score: 'Score', streak: 'Streak', timeLeft: 'sec', question: 'Question', finished: 'Well Done!', playAgain: 'Play Again', personalStats: 'Personal Stats', totalGames: 'Games', highScore: 'High Score', avgScore: 'Average', totalPoints: 'Total Points', noGames: 'No games played yet.', theme: 'Theme', fontSize: 'Font Size', language: 'Language', search: 'Search country...', export: 'Export List', share: 'Share', clear: 'Clear', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Time out!', copied: 'Copied!', adPlaceholder: 'Advertisement supports us',
   },
   zh: {
-    title: '国旗冠军', start: '开始游戏', study: '学习模式', stats: '统计数据', settings: '设置', score: '得分', streak: '连胜', timeLeft: '秒', question: '问题', finished: '做得好！', playAgain: '再玩一次', personalStats: '个人统计', totalGames: '游戏场数', highScore: '最高分', avgScore: '平均分', totalPoints: '总分', noGames: '还没有游戏记录。', theme: '主题', fontSize: '字体大小', language: '语言', search: '搜索国家...', export: '导出列表', share: '分享', clear: '清除', feedback: '反馈', copyright: '© Noam Gold AI 2026', timeout: '时间到！', copied: '已复制！', adPlaceholder: '广告支持我们',
+    title: '国旗冠军', start: '开始游戏', study: '学习模式', stats: '统计数据', settings: '设置', score: '得分', streak: '连胜', timeLeft: '秒', question: '问题', finished: '做得好！', playAgain: '再玩一次', personalStats: '个人统计', totalGames: '游戏场数', highScore: '最高分', avgScore: '平均分', totalPoints: '总分', noGames: '还没有记录。', theme: '主题', fontSize: '字体大小', language: '语言', search: '搜索国家...', export: '导出', share: '分享', clear: '清除', feedback: '反馈', copyright: '© Noam Gold AI 2026', timeout: '时间到！', copied: '已复制！', adPlaceholder: '广告支持我们',
   },
   hi: {
-    title: 'ध्वज चैंपियन', start: 'खेल शुरू करें', study: 'अध्ययन मोड', stats: 'आंकड़े', settings: 'सेटिंग्स', score: 'स्कोर', streak: 'लगातार जीत', timeLeft: 'सेकंड', question: 'प्रश्न', finished: 'शाबाश!', playAgain: 'फिर से खेलें', personalStats: 'व्यक्तिगत आंकड़े', totalGames: 'कुल खेल', highScore: 'उच्चतम स्कोर', avgScore: 'औसत', totalPoints: 'कुल अंक', noGames: 'कोई खेल नहीं।', theme: 'थीम', fontSize: 'फ़ॉन्ट आकार', language: 'भाषा', search: 'देश खोजें...', export: 'सूची निर्यात करें', share: 'साझा करें', clear: 'साफ़ करें', feedback: 'प्रतिक्रिया', copyright: '© Noam Gold AI 2026', timeout: 'समय समाप्त!', copied: 'कॉपी किया गया!', adPlaceholder: 'विज्ञापन हमारा समर्थन करते हैं',
+    title: 'ध्वज चैंपियन', start: 'खेल शुरू करें', study: 'अध्ययन मोड', stats: 'आंकड़े', settings: 'सेटिंग्स', score: 'स्कोर', streak: 'लगातार जीत', timeLeft: 'सेकंड', question: 'प्रश्न', finished: 'शाबाश!', playAgain: 'फिर से खेलें', personalStats: 'व्यक्तिगत आंकड़े', totalGames: 'कुल खेल', highScore: 'उच्चतम', avgScore: 'औसत', totalPoints: 'कुल अंक', noGames: 'कोई रिकॉर्ड नहीं।', theme: 'थीम', fontSize: 'फ़ॉन्ट', language: 'भाषा', search: 'खोजें...', export: 'निर्यात', share: 'साझा करें', clear: 'साफ़ करें', feedback: 'प्रतिक्रिया', copyright: '© Noam Gold AI 2026', timeout: 'समय समाप्त!', copied: 'कॉपी किया गया!', adPlaceholder: 'विज्ञापन हमारा समर्थन करते हैं',
   },
   de: {
-    title: 'Flaggen-Champion', start: 'Spiel starten', study: 'Lernmodus', stats: 'Statistiken', settings: 'Einstellungen', score: 'Punktzahl', streak: 'Serie', timeLeft: 'Sek', question: 'Frage', finished: 'Gut gemacht!', playAgain: 'Nochmal spielen', personalStats: 'Persönliche Statistik', totalGames: 'Spiele', highScore: 'Bestleistung', avgScore: 'Durchschnitt', totalPoints: 'Gesamtpunkte', noGames: 'Noch keine Spiele.', theme: 'Thema', fontSize: 'Schriftgröße', language: 'Sprache', search: 'Land suchen...', export: 'Exportieren', share: 'Teilen', clear: 'Löschen', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Zeit abgelaufen!', copied: 'Kopiert!', adPlaceholder: 'Werbung unterstützt uns',
+    title: 'Flaggen-Champion', start: 'Start', study: 'Lernen', stats: 'Statistiken', settings: 'Optionen', score: 'Punkte', streak: 'Serie', timeLeft: 'Sek', question: 'Frage', finished: 'Super!', playAgain: 'Nochmal', personalStats: 'Statistik', totalGames: 'Spiele', highScore: 'Bestwert', avgScore: 'Schnitt', totalPoints: 'Gesamt', noGames: 'Keine Spiele.', theme: 'Thema', fontSize: 'Größe', language: 'Sprache', search: 'Suchen...', export: 'Export', share: 'Teilen', clear: 'Löschen', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Zeit um!', copied: 'Kopiert!', adPlaceholder: 'Werbung unterstützt uns',
   },
   es: {
-    title: 'Campeón de Banderas', start: 'Empezar Juego', study: 'Modo de Estudio', stats: 'Estadísticas', settings: 'Configuración', score: 'Puntuación', streak: 'Racha', timeLeft: 'seg', question: 'Pregunta', finished: '¡Bien hecho!', playAgain: 'Jugar de nuevo', personalStats: 'Estadísticas Personales', totalGames: 'Juegos', highScore: 'Máxima', avgScore: 'Promedio', totalPoints: 'Total', noGames: 'Sin juegos aún.', theme: 'Tema', fontSize: 'Tamaño', language: 'Idioma', search: 'Buscar país...', export: 'Exportar', share: 'Compartir', clear: 'Limpiar', feedback: 'Comentarios', copyright: '© Noam Gold AI 2026', timeout: '¡Tiempo!', copied: '¡Copiado!', adPlaceholder: 'La publicidad nos apoya',
+    title: 'Campeón de Banderas', start: 'Jugar', study: 'Estudiar', stats: 'Estadísticas', settings: 'Ajustes', score: 'Puntos', streak: 'Racha', timeLeft: 'seg', question: 'Pregunta', finished: '¡Muy bien!', playAgain: 'Otra vez', personalStats: 'Mis Stats', totalGames: 'Juegos', highScore: 'Récord', avgScore: 'Media', totalPoints: 'Total', noGames: 'Sin juegos.', theme: 'Tema', fontSize: 'Tamaño', language: 'Idioma', search: 'Buscar...', export: 'Exportar', share: 'Compartir', clear: 'Limpiar', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: '¡Tiempo!', copied: '¡Copiado!', adPlaceholder: 'Publicidad nos apoya',
   },
   fr: {
-    title: 'Champion des Drapeaux', start: 'Commencer', study: "Étude", stats: 'Statistiques', settings: 'Paramètres', score: 'Score', streak: 'Série', timeLeft: 'sec', question: 'Question', finished: 'Bien joué !', playAgain: 'Rejouer', personalStats: 'Stats Personnelles', totalGames: 'Jeux', highScore: 'Record', avgScore: 'Moyenne', totalPoints: 'Total', noGames: 'Aucun jeu.', theme: 'Thème', fontSize: 'Taille', language: 'Langue', search: 'Chercher...', export: 'Exporter', share: 'Partager', clear: 'Effacer', feedback: 'Commentaires', copyright: '© Noam Gold AI 2026', timeout: 'Temps écoulé !', copied: 'Copié !', adPlaceholder: 'La publicité nous soutient',
+    title: 'Champion des Drapeaux', start: 'Jouer', study: 'Étudier', stats: 'Stats', settings: 'Réglages', score: 'Score', streak: 'Série', timeLeft: 'sec', question: 'Question', finished: 'Bravo !', playAgain: 'Rejouer', personalStats: 'Stats', totalGames: 'Jeux', highScore: 'Record', avgScore: 'Moyenne', totalPoints: 'Total', noGames: 'Aucun jeu.', theme: 'Thème', fontSize: 'Taille', language: 'Langue', search: 'Chercher...', export: 'Exporter', share: 'Partager', clear: 'Effacer', feedback: 'Feedback', copyright: '© Noam Gold AI 2026', timeout: 'Temps fini !', copied: 'Copié !', adPlaceholder: 'Soutenu par la pub',
   }
 };
 
@@ -168,22 +168,27 @@ const getStatsData = () => {
 // --- Robust Ad Unit ---
 function AdUnit({ lang }: { lang: string }) {
   const [isBlocked, setIsBlocked] = useState(window.adsByGoogleBlocked || false);
-  const initializedRef = useRef(false);
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   useEffect(() => {
-    if (initializedRef.current) return;
-    initializedRef.current = true;
+    if (window.adsByGoogleBlocked) {
+      setIsBlocked(true);
+      return;
+    }
 
-    try {
-      if (window.adsbygoogle && !window.adsByGoogleBlocked) {
-        window.adsbygoogle.push({});
-      } else {
+    const timer = setTimeout(() => {
+      try {
+        if (window.adsbygoogle && typeof window.adsbygoogle === 'object') {
+           window.adsbygoogle.push({});
+        } else {
+           setIsBlocked(true);
+        }
+      } catch (e) {
         setIsBlocked(true);
       }
-    } catch (e) {
-      setIsBlocked(true);
-    }
+    }, 200);
+
+    return () => clearTimeout(timer);
   }, []);
 
   return (
