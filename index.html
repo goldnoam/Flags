@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>אלוף הדגלים - למידה וחידון דגלי העולם</title>
     <meta name="description" content="האתר הטוב ביותר ללמידת דגלי מדינות העולם. שחק בחידון, למד במצב עיון ושפר את הידע הגיאוגרפי שלך.">
-    <link rel="icon" href="https://flagcdn.com/w20/il.png" type="image/png">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚩</text></svg>">
     
     <!-- SEO Schema -->
     <script type="application/ld+json">
@@ -15,7 +15,7 @@
       "name": "אלוף הדגלים",
       "applicationCategory": "EducationalGame",
       "operatingSystem": "Web",
-      "description": "משחק חידון דגלים אינטראקטיבי ללימוד מדינות העולם ללא בינה מלאכותית.",
+      "description": "משחק חידון דגלי העולם - זהו דגלים, למדו על מדינות ושפרו את הידע הכללי שלכם בצורה אינטראקטיבית.",
       "offers": {
         "@type": "Offer",
         "price": "0"
@@ -23,8 +23,8 @@
     }
     </script>
 
-    <!-- Google AdSense Placeholder (Simulated) -->
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0274741291001288" crossorigin="anonymous"></script>
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="importmap">
@@ -46,15 +46,15 @@
       body {
         font-family: 'Assistant', sans-serif;
         transition: background-color 0.3s, color 0.3s;
+        -webkit-tap-highlight-color: transparent;
       }
 
-      /* Theme: Dark (Default) */
+      /* Themes */
       .theme-dark {
         background: radial-gradient(circle at top, #1e1b4b 0%, #000000 100%);
         color: white;
       }
 
-      /* Theme: Bright */
       .theme-bright {
         background: #f8fafc;
         color: #1e293b;
@@ -65,7 +65,6 @@
       .theme-bright .text-gray-300 { color: #475569; }
       .theme-bright .bg-white\/5 { background-color: rgba(0,0,0,0.03); }
 
-      /* Theme: Colorful */
       .theme-colorful {
         background: linear-gradient(135deg, #4338ca 0%, #db2777 100%);
         color: white;
@@ -76,6 +75,7 @@
       .font-size-medium { font-size: 1rem; }
       .font-size-large { font-size: 1.25rem; }
 
+      /* Animations */
       @keyframes subtle-zoom {
         0%, 100% { transform: scale(1); }
         50% { transform: scale(1.05); }
@@ -84,13 +84,12 @@
         animation: subtle-zoom 8s ease-in-out infinite;
       }
 
-      .quiz-enter {
-        animation: quiz-enter-anim 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      }
-
       @keyframes quiz-enter-anim {
         from { opacity: 0; transform: scale(0.9) translateY(20px); }
         to { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      .quiz-enter {
+        animation: quiz-enter-anim 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
       }
 
       @keyframes correct-pop {
@@ -115,6 +114,17 @@
 
       [dir="rtl"] .ltr-only { display: none; }
       [dir="ltr"] .rtl-only { display: none; }
+
+      .ad-container {
+        min-height: 100px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        margin: 1.5rem 0;
+        overflow: hidden;
+      }
     </style>
 </head>
 <body class="theme-dark font-size-medium overflow-x-hidden min-h-screen">

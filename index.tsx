@@ -5,7 +5,7 @@ import {
   Trophy, RefreshCw, CheckCircle2, XCircle, Flag, Star, BarChart3, 
   ArrowRight, TrendingUp, History, Target, Clock, Settings, 
   Languages, Type, Sun, Moon, Palette, Search, X, Download, 
-  Info, Volume2, BookOpen, Trash2
+  Volume2, BookOpen, Trash2
 } from 'lucide-react';
 
 // --- Data ---
@@ -98,26 +98,6 @@ const COUNTRIES = [
   { code: 'ec', name: 'אקוודור', en: 'Ecuador' },
   { code: 'pa', name: 'פנמה', en: 'Panama' },
   { code: 'cu', name: 'קובה', en: 'Cuba' },
-  { code: 'do', name: 'הרפובליקה הדומיניקנית', en: 'Dominican Republic' },
-  { code: 'hn', name: 'הונדורס', en: 'Honduras' },
-  { code: 'sv', name: 'אל סלבדור', en: 'El Salvador' },
-  { code: 'ni', name: 'ניקרגואה', en: 'Nicaragua' },
-  { code: 'gt', name: 'גואטמלה', en: 'Guatemala' },
-  { code: 'pr', name: 'פורטו ריקו', en: 'Puerto Rico' },
-  { code: 'mg', name: 'מדגסקר', en: 'Madagascar' },
-  { code: 'lk', name: 'סרי לנקה', en: 'Sri Lanka' },
-  { code: 'np', name: 'נפאל', en: 'Nepal' },
-  { code: 'bd', name: 'בנגלדש', en: 'Bangladesh' },
-  { code: 'kh', name: 'קמבודיה', en: 'Cambodia' },
-  { code: 'la', name: 'לאוס', en: 'Laos' },
-  { code: 'mn', name: 'מונגוליה', en: 'Mongolia' },
-  { code: 'al', name: 'אלבניה', en: 'Albania' },
-  { code: 'lu', name: 'לוקסמבורג', en: 'Luxembourg' },
-  { code: 'mc', name: 'מונקו', en: 'Monaco' },
-  { code: 'ad', name: 'אנדורה', en: 'Andorra' },
-  { code: 'li', name: 'ליכטנשטיין', en: 'Liechtenstein' },
-  { code: 'sm', name: 'סן מרינו', en: 'San Marino' },
-  { code: 'va', name: 'ותיקן', en: 'Vatican City' },
 ];
 
 const TRANSLATIONS: Record<string, any> = {
@@ -145,7 +125,7 @@ const TRANSLATIONS: Record<string, any> = {
     search: 'חפש מדינה...',
     export: 'ייצוא רשימה',
     clear: 'נקה',
-    feedback: 'שלחו משוב',
+    feedback: 'משוב',
     copyright: '© נועם גולד AI 2026',
     timeout: 'נגמר הזמן!',
   },
@@ -173,7 +153,7 @@ const TRANSLATIONS: Record<string, any> = {
     search: 'Search country...',
     export: 'Export List',
     clear: 'Clear',
-    feedback: 'Send Feedback',
+    feedback: 'Feedback',
     copyright: '© Noam Gold AI 2026',
     timeout: 'Time out!',
   }
@@ -211,29 +191,53 @@ const getStatsData = () => {
   return { totalGames, highestScore, averageScore, results };
 };
 
+// --- AdSense Component ---
+
+function AdUnit({ slot }: { slot?: string }) {
+  useEffect(() => {
+    try {
+      // @ts-ignore
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    } catch (e) {
+      console.debug('AdSense pending or blocked');
+    }
+  }, []);
+
+  return (
+    <div className="ad-container">
+      <ins className="adsbygoogle"
+           style={{ display: 'block', width: '100%' }}
+           data-ad-client="ca-pub-0274741291001288"
+           data-ad-slot={slot || "default-slot"}
+           data-ad-format="auto"
+           data-full-width-responsive="true"></ins>
+    </div>
+  );
+}
+
 // --- Components ---
 
 function ThemeToggle({ theme, setTheme }: { theme: string, setTheme: (t: string) => void }) {
   return (
     <button 
-      onClick={() => setTheme(theme === 'theme-dark' ? 'theme-bright' : 'theme-dark')}
+      onClick={() => setTheme(theme === 'theme-dark' ? 'theme-bright' : theme === 'theme-bright' ? 'theme-colorful' : 'theme-dark')}
       className="p-2 bg-white/10 rounded-full hover:bg-white/20 transition-colors"
-      aria-label="Toggle Theme"
+      aria-label="Cycle Themes"
     >
-      {theme === 'theme-dark' ? <Sun size={20} /> : <Moon size={20} />}
+      {theme === 'theme-dark' ? <Moon size={20} /> : theme === 'theme-bright' ? <Sun size={20} /> : <Palette size={20} />}
     </button>
   );
 }
 
 function LanguageSwitcher({ lang, setLang }: { lang: string, setLang: (l: string) => void }) {
-  const langs = ['he', 'en', 'zh', 'hi', 'de', 'es', 'fr'];
+  const langs = ['he', 'en'];
   return (
     <div className="flex gap-2">
       <Languages size={20} />
       <select 
         value={lang} 
         onChange={(e) => setLang(e.target.value)}
-        className="bg-transparent border-none text-sm outline-none cursor-pointer"
+        className="bg-transparent border-none text-sm outline-none cursor-pointer font-bold"
       >
         {langs.map(l => <option key={l} value={l} className="bg-slate-800 text-white">{l.toUpperCase()}</option>)}
       </select>
@@ -271,7 +275,7 @@ function StudyMode({ lang }: { lang: string }) {
           <ArrowRight className="ltr-only w-6 h-6 rotate-180" />
         </button>
         <h2 className="text-2xl font-bold">{t.study}</h2>
-        <button onClick={handleExport} className="p-2 bg-blue-500 rounded-full"><Download size={20} /></button>
+        <button onClick={handleExport} className="p-2 bg-blue-500 rounded-full text-white"><Download size={20} /></button>
       </div>
 
       <div className="relative group">
@@ -282,30 +286,35 @@ function StudyMode({ lang }: { lang: string }) {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           onDrop={(e) => { e.preventDefault(); setSearch(e.dataTransfer.getData('text')); }}
-          className="w-full py-4 pr-12 pl-12 bg-white/10 rounded-2xl border border-white/10 focus:border-blue-500 outline-none"
+          className="w-full py-4 pr-12 pl-4 bg-white/10 rounded-2xl border border-white/10 focus:border-blue-500 outline-none backdrop-blur-sm"
         />
-        {search && <button onClick={() => setSearch('')} className="absolute left-4 top-1/2 -translate-y-1/2"><X size={20} /></button>}
+        {search && <button onClick={() => setSearch('')} className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"><X size={20} /></button>}
       </div>
 
+      <AdUnit />
+
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
-        {filtered.map(c => (
-          <div key={c.code} className="bg-white/5 p-4 rounded-2xl border border-white/10 text-center hover:scale-105 transition-transform group">
-            <img 
-              src={`https://flagcdn.com/w160/${c.code}.png`} 
-              alt={c.name} 
-              className="w-full aspect-[3/2] object-cover rounded shadow-md mb-2"
-            />
-            <div className="font-bold text-sm">
-              {lang === 'en' ? c.en : c.name} 
-              <span className="opacity-40 ml-1 text-[10px] uppercase">({c.code})</span>
+        {filtered.map((c, index) => (
+          <React.Fragment key={c.code}>
+            <div className="bg-white/5 p-4 rounded-2xl border border-white/10 text-center hover:scale-105 transition-transform group backdrop-blur-sm">
+              <img 
+                src={`https://flagcdn.com/w160/${c.code}.png`} 
+                alt={c.name} 
+                className="w-full aspect-[3/2] object-cover rounded shadow-md mb-2"
+              />
+              <div className="font-bold text-sm">
+                {lang === 'en' ? c.en : c.name} 
+                <span className="opacity-40 ml-1 text-[10px] uppercase">({c.code})</span>
+              </div>
+              <button 
+                onClick={() => speak(c.name)} 
+                className="mt-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity p-2 hover:bg-blue-400/10 rounded-full"
+              >
+                <Volume2 size={16} />
+              </button>
             </div>
-            <button 
-              onClick={() => speak(c.name)} 
-              className="mt-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity"
-            >
-              <Volume2 size={16} />
-            </button>
-          </div>
+            {(index + 1) % 12 === 0 && <div className="col-span-full"><AdUnit /></div>}
+          </React.Fragment>
         ))}
       </div>
     </div>
@@ -332,7 +341,7 @@ function SettingsPage({
       </div>
 
       <div className="space-y-6">
-        <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
+        <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
           <div className="flex items-center gap-3"><Palette /> <span>{t.theme}</span></div>
           <div className="flex gap-2">
             <button onClick={() => setTheme('theme-dark')} className={`w-8 h-8 rounded-full bg-slate-900 border ${theme === 'theme-dark' ? 'border-blue-500 ring-2' : 'border-transparent'}`} />
@@ -341,14 +350,14 @@ function SettingsPage({
           </div>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
+        <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
           <div className="flex items-center gap-3"><Type /> <span>{t.fontSize}</span></div>
           <div className="flex gap-2">
             {['small', 'medium', 'large'].map(sz => (
               <button 
                 key={sz}
                 onClick={() => setFontSize(`font-size-${sz}`)} 
-                className={`px-3 py-1 rounded-lg border ${fontSize === `font-size-${sz}` ? 'bg-blue-500 border-blue-400' : 'bg-white/10 border-transparent'}`}
+                className={`px-3 py-1 rounded-lg border font-bold ${fontSize === `font-size-${sz}` ? 'bg-blue-500 text-white border-blue-400' : 'bg-white/10 border-transparent'}`}
               >
                 {sz.charAt(0).toUpperCase()}
               </button>
@@ -356,7 +365,7 @@ function SettingsPage({
           </div>
         </div>
 
-        <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10">
+        <div className="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/10 backdrop-blur-md">
           <div className="flex items-center gap-3"><Languages /> <span>{t.language}</span></div>
           <LanguageSwitcher lang={lang} setLang={setLang} />
         </div>
@@ -389,7 +398,6 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
     setTimeLeft(QUESTION_TIME_LIMIT);
     setSelectedAnswer(null);
     setGameState('PLAYING');
-    speak(t.start);
   };
 
   const handleAnswer = (countryCode: string | null) => {
@@ -442,12 +450,13 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
           <div className="w-32 h-32 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto animate-bounce"><Flag size={64} className="text-blue-400" /></div>
           <h2 className="text-4xl font-black">{t.title}</h2>
           <div className="grid grid-cols-1 gap-4">
-            <button onClick={startGame} className="w-full py-5 bg-blue-600 rounded-3xl font-black text-2xl hover:bg-blue-500 transition-all transform hover:scale-105 active:scale-95 shadow-xl">{t.start}</button>
+            <button onClick={startGame} className="w-full py-5 bg-blue-600 text-white rounded-3xl font-black text-2xl hover:bg-blue-500 transition-all transform hover:scale-105 active:scale-95 shadow-xl">{t.start}</button>
             <div className="flex gap-4">
               <button onClick={() => navigate('/study')} className="flex-1 py-4 bg-white/10 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/20"><BookOpen size={20} /> {t.study}</button>
               <button onClick={() => navigate('/stats')} className="flex-1 py-4 bg-white/10 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/20"><BarChart3 size={20} /> {t.stats}</button>
             </div>
           </div>
+          <AdUnit />
         </div>
       )}
 
@@ -458,8 +467,8 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
             <span className={timeLeft < 5 ? 'text-red-500 animate-pulse' : ''}>{timeLeft} {t.timeLeft}</span>
           </div>
 
-          <div className="bg-white p-3 rounded-3xl shadow-2xl relative overflow-hidden aspect-[3/2] flex items-center justify-center">
-            {selectedAnswer === 'TIMEOUT' && <div className="absolute inset-0 bg-red-600/60 backdrop-blur-sm z-20 flex items-center justify-center font-black text-3xl">{t.timeout}</div>}
+          <div className="bg-white p-3 rounded-3xl shadow-2xl relative overflow-hidden aspect-[3/2] flex items-center justify-center border border-white/20">
+            {selectedAnswer === 'TIMEOUT' && <div className="absolute inset-0 bg-red-600/60 backdrop-blur-sm z-20 flex items-center justify-center font-black text-3xl text-white">{t.timeout}</div>}
             <img 
               src={`https://flagcdn.com/w640/${quizData[currentQuestion].correct.code}.png`} 
               className="w-full h-full object-cover rounded-2xl animate-subtle-zoom" 
@@ -473,8 +482,8 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
               const isSel = selectedAnswer === opt.code;
               let btnClass = "bg-white/10 hover:bg-white/20 border-white/10";
               if (selectedAnswer) {
-                if (isCorrect) btnClass = "bg-green-600 border-green-400 ring-4 ring-green-400/30 animate-correct";
-                else if (isSel) btnClass = "bg-red-600 border-red-400 animate-incorrect shadow-[0_0_20px_rgba(220,38,38,0.4)]";
+                if (isCorrect) btnClass = "bg-green-600 text-white border-green-400 ring-4 ring-green-400/30 animate-correct";
+                else if (isSel) btnClass = "bg-red-600 text-white border-red-400 animate-incorrect shadow-[0_0_20px_rgba(220,38,38,0.4)]";
                 else btnClass = "opacity-40 bg-white/5 border-transparent scale-[0.98]";
               }
               return (
@@ -482,7 +491,7 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
                   key={opt.code} 
                   disabled={!!selectedAnswer}
                   onClick={() => { handleAnswer(opt.code); speak(opt.name); }}
-                  className={`w-full p-5 rounded-2xl border text-xl font-bold transition-all flex justify-between items-center ${btnClass}`}
+                  className={`w-full p-5 rounded-2xl border text-xl font-bold transition-all flex justify-between items-center backdrop-blur-sm ${btnClass}`}
                 >
                   <div className="flex items-center gap-4">
                     {selectedAnswer && <img src={`https://flagcdn.com/w40/${opt.code}.png`} className="w-8 h-6 rounded shadow-sm" alt="" />}
@@ -504,8 +513,9 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
           <Trophy size={80} className="mx-auto text-yellow-400" />
           <h2 className="text-4xl font-black">{t.finished}</h2>
           <div className="text-6xl font-mono font-black text-blue-500">{score}</div>
-          <button onClick={startGame} className="w-full py-5 bg-white text-blue-900 rounded-3xl font-black text-2xl hover:bg-gray-100 transition-all">{t.playAgain}</button>
-          <button onClick={() => navigate('/stats')} className="w-full py-4 bg-white/10 rounded-2xl font-bold flex items-center justify-center gap-2">{t.stats}</button>
+          <button onClick={startGame} className="w-full py-5 bg-blue-600 text-white rounded-3xl font-black text-2xl hover:bg-blue-500 transition-all transform hover:scale-105 active:scale-95 shadow-xl">{t.playAgain}</button>
+          <button onClick={() => navigate('/stats')} className="w-full py-4 bg-white/10 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/20">{t.stats}</button>
+          <AdUnit />
         </div>
       )}
     </div>
@@ -527,10 +537,10 @@ function App() {
 
   return (
     <HashRouter>
-      <div className="max-w-xl mx-auto px-4 py-8 pb-32">
+      <div className="max-w-xl mx-auto px-4 py-8 pb-32 min-h-screen flex flex-col">
         <header className="flex justify-between items-center mb-10 bg-white/10 p-4 rounded-3xl backdrop-blur-xl border border-white/20 sticky top-4 z-50">
           <Link to="/" className="flex items-center gap-2 group">
-             <div className="bg-blue-600 p-2 rounded-xl group-hover:rotate-12 transition-transform"><Flag size={24} /></div>
+             <div className="bg-blue-600 p-2 rounded-xl group-hover:rotate-12 transition-transform text-white"><Flag size={24} /></div>
              <h1 className="text-xl font-black">{TRANSLATIONS[lang]?.title || 'Flags'}</h1>
           </Link>
           <div className="flex items-center gap-3">
@@ -539,7 +549,9 @@ function App() {
           </div>
         </header>
 
-        <main className="min-h-[60vh]">
+        <AdUnit />
+
+        <main className="flex-grow">
           <Routes>
             <Route path="/" element={<QuizGame lang={lang} score={score} setScore={setScore} streak={streak} setStreak={setStreak} />} />
             <Route path="/study" element={<StudyMode lang={lang} />} />
@@ -554,10 +566,7 @@ function App() {
               <p>{TRANSLATIONS[lang]?.copyright}</p>
            </div>
            
-           {/* AdSense Placeholder Area */}
-           <div className="w-full h-24 bg-white/5 border border-dashed border-white/20 rounded-xl flex items-center justify-center text-xs">
-              Advertisement Placeholder
-           </div>
+           <AdUnit />
         </footer>
       </div>
     </HashRouter>
@@ -570,7 +579,7 @@ function StatsView({ lang }: { lang: string }) {
   const t = TRANSLATIONS[lang] || TRANSLATIONS.en;
 
   const clearStats = () => {
-    if (confirm('Are you sure?')) {
+    if (confirm('בטוחים שרוצים למחוק הכל?')) {
       localStorage.removeItem(STATS_KEY);
       window.location.reload();
     }
@@ -588,32 +597,32 @@ function StatsView({ lang }: { lang: string }) {
       </div>
 
       {!stats ? (
-        <div className="text-center py-20 bg-white/5 rounded-3xl border border-white/10">
+        <div className="text-center py-20 bg-white/5 rounded-3xl border border-white/10 backdrop-blur-md">
           <History size={64} className="mx-auto mb-4 opacity-20" />
           <p>{t.noGames}</p>
         </div>
       ) : (
         <div className="grid grid-cols-2 gap-4">
-          <div className="bg-white/5 p-6 rounded-3xl border border-white/10 text-center">
+          <div className="bg-white/5 p-6 rounded-3xl border border-white/10 text-center backdrop-blur-md">
             <div className="text-3xl font-black mb-1">{stats.totalGames}</div>
             <div className="text-xs uppercase opacity-60">{t.totalGames}</div>
           </div>
-          <div className="bg-white/5 p-6 rounded-3xl border border-white/10 text-center">
+          <div className="bg-white/5 p-6 rounded-3xl border border-white/10 text-center backdrop-blur-md">
             <div className="text-3xl font-black mb-1">{stats.highestScore}</div>
             <div className="text-xs uppercase opacity-60">{t.highScore}</div>
           </div>
-          <div className="bg-white/5 p-6 rounded-3xl border border-white/10 text-center">
+          <div className="bg-white/5 p-6 rounded-3xl border border-white/10 text-center backdrop-blur-md">
             <div className="text-3xl font-black mb-1">{stats.averageScore}</div>
             <div className="text-xs uppercase opacity-60">{t.avgScore}</div>
           </div>
-          <div className="bg-white/5 p-6 rounded-3xl border border-white/10 text-center">
+          <div className="bg-white/5 p-6 rounded-3xl border border-white/10 text-center backdrop-blur-md">
             <div className="text-3xl font-black mb-1">{stats.results.reduce((a: any, b: any) => a + b.score, 0)}</div>
             <div className="text-xs uppercase opacity-60">{t.totalPoints}</div>
           </div>
 
-          <div className="col-span-2 bg-white/5 p-6 rounded-3xl border border-white/10">
+          <div className="col-span-2 bg-white/5 p-6 rounded-3xl border border-white/10 backdrop-blur-md">
              <h3 className="text-lg font-bold mb-4">{t.stats}</h3>
-             <div className="space-y-2 max-h-60 overflow-y-auto pr-2">
+             <div className="space-y-2 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
                 {stats.results.slice().reverse().map((r: any, i: number) => (
                   <div key={i} className="flex justify-between items-center p-3 bg-white/5 rounded-xl border border-white/10">
                     <span className="text-xs opacity-50">{new Date(r.date).toLocaleDateString()}</span>
