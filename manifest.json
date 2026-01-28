@@ -8,14 +8,14 @@
   "theme_color": "#1e1b4b",
   "icons": [
     {
-      "src": "https://flagcdn.com/w512/il.png",
+      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/512/emoji_u1f1ee_1f1f1.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "https://flagcdn.com/w160/il.png",
-      "sizes": "160x120",
+      "src": "https://cdn.jsdelivr.net/gh/googlefonts/noto-emoji@main/png/128/emoji_u1f1ee_1f1f1.png",
+      "sizes": "128x128",
       "type": "image/png",
       "purpose": "any"
     }
