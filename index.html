@@ -1,0 +1,104 @@
+
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>אלוף הדגלים - למידה וחידון דגלי העולם</title>
+    <meta name="description" content="האתר הטוב ביותר ללמידת דגלי מדינות העולם. שחק בחידון, למד במצב עיון ושפר את הידע הגיאוגרפי שלך.">
+    <link rel="icon" href="https://flagcdn.com/w20/il.png" type="image/png">
+    
+    <!-- SEO Schema -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "EducationalApplication",
+      "name": "אלוף הדגלים",
+      "applicationCategory": "EducationalGame",
+      "operatingSystem": "Web",
+      "description": "משחק חידון דגלים אינטראקטיבי ללימוד מדינות העולם ללא בינה מלאכותית.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0"
+      }
+    }
+    </script>
+
+    <!-- Google AdSense Placeholder (Simulated) -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0000000000000000" crossorigin="anonymous"></script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.4",
+    "react/": "https://esm.sh/react@^19.2.4/",
+    "react-dom": "https://esm.sh/react-dom@^19.2.4",
+    "react-dom/client": "https://esm.sh/react-dom@^19.2.4/client",
+    "react-router-dom": "https://esm.sh/react-router-dom@^6.22.3",
+    "lucide-react": "https://esm.sh/lucide-react@^0.563.0",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.4/"
+  }
+}
+</script>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap');
+      
+      body {
+        font-family: 'Assistant', sans-serif;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      /* Theme: Dark (Default) */
+      .theme-dark {
+        background: radial-gradient(circle at top, #1e1b4b 0%, #000000 100%);
+        color: white;
+      }
+
+      /* Theme: Bright */
+      .theme-bright {
+        background: #f8fafc;
+        color: #1e293b;
+      }
+      .theme-bright .bg-white\/10 { background-color: rgba(0,0,0,0.05); }
+      .theme-bright .border-white\/10 { border-color: rgba(0,0,0,0.1); }
+      .theme-bright .text-white { color: #1e293b; }
+      .theme-bright .text-gray-300 { color: #475569; }
+      .theme-bright .bg-white\/5 { background-color: rgba(0,0,0,0.03); }
+
+      /* Theme: Colorful */
+      .theme-colorful {
+        background: linear-gradient(135deg, #4338ca 0%, #db2777 100%);
+        color: white;
+      }
+
+      /* Font Sizes */
+      .font-size-small { font-size: 0.875rem; }
+      .font-size-medium { font-size: 1rem; }
+      .font-size-large { font-size: 1.25rem; }
+
+      @keyframes subtle-zoom {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+      }
+      .animate-subtle-zoom {
+        animation: subtle-zoom 8s ease-in-out infinite;
+      }
+
+      .quiz-enter {
+        animation: quiz-enter-anim 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+      }
+
+      @keyframes quiz-enter-anim {
+        from { opacity: 0; transform: scale(0.9) translateY(20px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+      }
+
+      [dir="rtl"] .ltr-only { display: none; }
+      [dir="ltr"] .rtl-only { display: none; }
+    </style>
+</head>
+<body class="theme-dark font-size-medium overflow-x-hidden min-h-screen">
+    <div id="root"></div>
+</body>
+</html>
