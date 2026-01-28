@@ -1,0 +1,69 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply transition-colors duration-300 font-sans antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+}
+
+@layer components {
+  .theme-dark {
+    background: radial-gradient(circle at top, #1e1b4b 0%, #000000 100%);
+    @apply text-white;
+  }
+
+  .theme-bright {
+    @apply bg-slate-50 text-slate-900;
+  }
+  .theme-bright .bg-white\/10 { @apply bg-slate-200/50; }
+  .theme-bright .border-white\/10 { @apply border-slate-200; }
+  .theme-bright .text-white { @apply text-slate-900; }
+  .theme-bright .bg-white\/5 { @apply bg-slate-100; }
+
+  .theme-colorful {
+    background: linear-gradient(135deg, #4338ca 0%, #db2777 100%);
+    @apply text-white;
+  }
+
+  .font-size-small { font-size: 0.875rem; }
+  .font-size-medium { font-size: 1rem; }
+  .font-size-large { font-size: 1.25rem; }
+
+  .ad-container {
+    @apply min-h-[100px] flex items-center justify-center bg-white/5 rounded-xl my-6 overflow-hidden;
+  }
+
+  .animate-subtle-zoom {
+    animation: subtle-zoom 8s ease-in-out infinite;
+  }
+
+  .quiz-enter {
+    animation: quiz-enter-anim 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  }
+}
+
+@keyframes subtle-zoom {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
+
+@keyframes quiz-enter-anim {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  @apply w-1.5;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  @apply bg-white/10 rounded-full;
+}
+
+[dir="rtl"] .ltr-only { display: none; }
+[dir="ltr"] .rtl-only { display: none; }

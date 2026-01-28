@@ -1,11 +1,12 @@
+import './index.css';
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
-import { HashRouter, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
+import { HashRouter, Routes, Route, Link, useNavigate } from 'react-router-dom';
 import { 
-  Trophy, RefreshCw, CheckCircle2, XCircle, Flag, Star, BarChart3, 
-  ArrowRight, TrendingUp, History, Target, Clock, Settings, 
-  Languages, Type, Sun, Moon, Palette, Search, X, Download, 
-  Volume2, BookOpen, Trash2
+  Trophy, CheckCircle2, XCircle, Flag, BarChart3, 
+  ArrowRight, Settings, Languages, Type, Sun, Moon, 
+  Palette, Search, X, Download, Volume2, BookOpen, Trash2,
+  Sparkles, History
 } from 'lucide-react';
 
 // --- Data ---
@@ -425,7 +426,7 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
         setScore((prev: number) => { saveGameResult(prev); return prev; });
         setGameState('FINISHED');
       }
-    }, 1500);
+    }, 1800);
   };
 
   useEffect(() => {
@@ -448,7 +449,7 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
       {gameState === 'START' && (
         <div className="text-center space-y-8 py-10">
           <div className="w-32 h-32 bg-blue-500/20 rounded-full flex items-center justify-center mx-auto animate-bounce"><Flag size={64} className="text-blue-400" /></div>
-          <h2 className="text-4xl font-black">{t.title}</h2>
+          <h2 className="text-4xl font-black tracking-tight">{t.title}</h2>
           <div className="grid grid-cols-1 gap-4">
             <button onClick={startGame} className="w-full py-5 bg-blue-600 text-white rounded-3xl font-black text-2xl hover:bg-blue-500 transition-all transform hover:scale-105 active:scale-95 shadow-xl">{t.start}</button>
             <div className="flex gap-4">
@@ -463,7 +464,10 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
       {gameState === 'PLAYING' && quizData[currentQuestion] && (
         <div key={currentQuestion} className="quiz-enter space-y-6">
           <div className="flex justify-between items-center text-sm font-bold opacity-60">
-            <span>{t.question} {currentQuestion + 1} / 10</span>
+            <div className="flex items-center gap-2">
+               <span>{t.question} {currentQuestion + 1} / 10</span>
+               {streak > 1 && <span className="flex items-center gap-1 text-orange-400"><Sparkles size={14} /> {streak}</span>}
+            </div>
             <span className={timeLeft < 5 ? 'text-red-500 animate-pulse' : ''}>{timeLeft} {t.timeLeft}</span>
           </div>
 
@@ -476,16 +480,31 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
             />
           </div>
 
-          <div className="grid grid-cols-1 gap-3">
+          <div className="grid grid-cols-1 gap-3 relative">
+            {selectedAnswer && quizData[currentQuestion].correct.code === selectedAnswer && (
+              <div className="absolute inset-0 z-10 pointer-events-none flex items-center justify-center">
+                <div className="w-full h-full animate-confetti-burst flex justify-center items-center">
+                   <div className="flex gap-2">
+                     {[...Array(5)].map((_, i) => <Sparkles key={i} className="text-yellow-400 animate-pulse" style={{ animationDelay: `${i * 0.1}s` }} />)}
+                   </div>
+                </div>
+              </div>
+            )}
             {quizData[currentQuestion].options.map((opt: any) => {
               const isCorrect = opt.code === quizData[currentQuestion].correct.code;
               const isSel = selectedAnswer === opt.code;
               let btnClass = "bg-white/10 hover:bg-white/20 border-white/10";
+              
               if (selectedAnswer) {
-                if (isCorrect) btnClass = "bg-green-600 text-white border-green-400 ring-4 ring-green-400/30 animate-correct";
-                else if (isSel) btnClass = "bg-red-600 text-white border-red-400 animate-incorrect shadow-[0_0_20px_rgba(220,38,38,0.4)]";
-                else btnClass = "opacity-40 bg-white/5 border-transparent scale-[0.98]";
+                if (isCorrect) {
+                  btnClass = "bg-green-600 text-white border-green-400 ring-4 ring-green-400/30 animate-correct-pop";
+                } else if (isSel) {
+                  btnClass = "bg-red-600 text-white border-red-400 animate-incorrect-shake shadow-[0_0_20px_rgba(220,38,38,0.4)]";
+                } else {
+                  btnClass = "opacity-40 bg-white/5 border-transparent scale-[0.98]";
+                }
               }
+
               return (
                 <button 
                   key={opt.code} 
@@ -498,8 +517,8 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
                     <span>{lang === 'en' ? opt.en : opt.name}</span>
                   </div>
                   <div className="flex items-center">
-                    {selectedAnswer && isCorrect && <CheckCircle2 className="text-white" />}
-                    {selectedAnswer && isSel && !isCorrect && <XCircle className="text-white" />}
+                    {selectedAnswer && isCorrect && <CheckCircle2 size={28} className="text-white drop-shadow-md" />}
+                    {selectedAnswer && isSel && !isCorrect && <XCircle size={28} className="text-white drop-shadow-md" />}
                   </div>
                 </button>
               );
@@ -510,11 +529,17 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
 
       {gameState === 'FINISHED' && (
         <div className="text-center space-y-8 py-10 animate-in zoom-in">
-          <Trophy size={80} className="mx-auto text-yellow-400" />
+          <div className="relative inline-block">
+             <Trophy size={100} className="mx-auto text-yellow-400 drop-shadow-xl" />
+             <Sparkles className="absolute -top-4 -right-4 text-yellow-500 animate-pulse" />
+             <Sparkles className="absolute -bottom-2 -left-4 text-yellow-500 animate-pulse" />
+          </div>
           <h2 className="text-4xl font-black">{t.finished}</h2>
-          <div className="text-6xl font-mono font-black text-blue-500">{score}</div>
-          <button onClick={startGame} className="w-full py-5 bg-blue-600 text-white rounded-3xl font-black text-2xl hover:bg-blue-500 transition-all transform hover:scale-105 active:scale-95 shadow-xl">{t.playAgain}</button>
-          <button onClick={() => navigate('/stats')} className="w-full py-4 bg-white/10 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/20">{t.stats}</button>
+          <div className="text-7xl font-mono font-black text-blue-500">{score}</div>
+          <div className="grid grid-cols-1 gap-4">
+            <button onClick={startGame} className="w-full py-5 bg-blue-600 text-white rounded-3xl font-black text-2xl hover:bg-blue-500 transition-all transform hover:scale-105 active:scale-95 shadow-xl">{t.playAgain}</button>
+            <button onClick={() => navigate('/stats')} className="w-full py-4 bg-white/10 rounded-2xl font-bold flex items-center justify-center gap-2 hover:bg-white/20">{t.stats}</button>
+          </div>
           <AdUnit />
         </div>
       )}

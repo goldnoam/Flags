@@ -26,7 +26,7 @@
     <!-- Google AdSense -->
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-0274741291001288" crossorigin="anonymous"></script>
 
-    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="index.css">
     <script type="importmap">
 {
   "imports": {
@@ -40,92 +40,6 @@
   }
 }
 </script>
-    <style>
-      @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&display=swap');
-      
-      body {
-        font-family: 'Assistant', sans-serif;
-        transition: background-color 0.3s, color 0.3s;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      /* Themes */
-      .theme-dark {
-        background: radial-gradient(circle at top, #1e1b4b 0%, #000000 100%);
-        color: white;
-      }
-
-      .theme-bright {
-        background: #f8fafc;
-        color: #1e293b;
-      }
-      .theme-bright .bg-white\/10 { background-color: rgba(0,0,0,0.05); }
-      .theme-bright .border-white\/10 { border-color: rgba(0,0,0,0.1); }
-      .theme-bright .text-white { color: #1e293b; }
-      .theme-bright .text-gray-300 { color: #475569; }
-      .theme-bright .bg-white\/5 { background-color: rgba(0,0,0,0.03); }
-
-      .theme-colorful {
-        background: linear-gradient(135deg, #4338ca 0%, #db2777 100%);
-        color: white;
-      }
-
-      /* Font Sizes */
-      .font-size-small { font-size: 0.875rem; }
-      .font-size-medium { font-size: 1rem; }
-      .font-size-large { font-size: 1.25rem; }
-
-      /* Animations */
-      @keyframes subtle-zoom {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-      }
-      .animate-subtle-zoom {
-        animation: subtle-zoom 8s ease-in-out infinite;
-      }
-
-      @keyframes quiz-enter-anim {
-        from { opacity: 0; transform: scale(0.9) translateY(20px); }
-        to { opacity: 1; transform: scale(1) translateY(0); }
-      }
-      .quiz-enter {
-        animation: quiz-enter-anim 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-      }
-
-      @keyframes correct-pop {
-        0% { transform: scale(1); }
-        50% { transform: scale(1.05); }
-        100% { transform: scale(1); }
-      }
-      .animate-correct {
-        animation: correct-pop 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      }
-
-      @keyframes incorrect-shake {
-        0%, 100% { transform: translateX(0); }
-        20% { transform: translateX(-8px); }
-        40% { transform: translateX(8px); }
-        60% { transform: translateX(-8px); }
-        80% { transform: translateX(8px); }
-      }
-      .animate-incorrect {
-        animation: incorrect-shake 0.4s ease-in-out;
-      }
-
-      [dir="rtl"] .ltr-only { display: none; }
-      [dir="ltr"] .rtl-only { display: none; }
-
-      .ad-container {
-        min-height: 100px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 12px;
-        margin: 1.5rem 0;
-        overflow: hidden;
-      }
-    </style>
 </head>
 <body class="theme-dark font-size-medium overflow-x-hidden min-h-screen">
     <div id="root"></div>
