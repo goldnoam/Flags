@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { createRoot } from 'react-dom/client';
 import { HashRouter, Routes, Route, Link, useNavigate, useLocation } from 'react-router-dom';
@@ -296,7 +295,10 @@ function StudyMode({ lang }: { lang: string }) {
               alt={c.name} 
               className="w-full aspect-[3/2] object-cover rounded shadow-md mb-2"
             />
-            <div className="font-bold text-sm">{lang === 'en' ? c.en : c.name}</div>
+            <div className="font-bold text-sm">
+              {lang === 'en' ? c.en : c.name} 
+              <span className="opacity-40 ml-1 text-[10px] uppercase">({c.code})</span>
+            </div>
             <button 
               onClick={() => speak(c.name)} 
               className="mt-2 text-blue-400 opacity-0 group-hover:opacity-100 transition-opacity"
@@ -471,9 +473,9 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
               const isSel = selectedAnswer === opt.code;
               let btnClass = "bg-white/10 hover:bg-white/20 border-white/10";
               if (selectedAnswer) {
-                if (isCorrect) btnClass = "bg-green-600 border-green-400";
-                else if (isSel) btnClass = "bg-red-600 border-red-400";
-                else btnClass = "opacity-40 bg-white/5 border-transparent";
+                if (isCorrect) btnClass = "bg-green-600 border-green-400 ring-4 ring-green-400/30 animate-correct";
+                else if (isSel) btnClass = "bg-red-600 border-red-400 animate-incorrect shadow-[0_0_20px_rgba(220,38,38,0.4)]";
+                else btnClass = "opacity-40 bg-white/5 border-transparent scale-[0.98]";
               }
               return (
                 <button 
@@ -483,11 +485,13 @@ function QuizGame({ lang, setScore, score, setStreak, streak }: any) {
                   className={`w-full p-5 rounded-2xl border text-xl font-bold transition-all flex justify-between items-center ${btnClass}`}
                 >
                   <div className="flex items-center gap-4">
-                    {selectedAnswer && <img src={`https://flagcdn.com/w40/${opt.code}.png`} className="w-8 h-6 rounded" alt="" />}
+                    {selectedAnswer && <img src={`https://flagcdn.com/w40/${opt.code}.png`} className="w-8 h-6 rounded shadow-sm" alt="" />}
                     <span>{lang === 'en' ? opt.en : opt.name}</span>
                   </div>
-                  {selectedAnswer && isCorrect && <CheckCircle2 />}
-                  {selectedAnswer && isSel && !isCorrect && <XCircle />}
+                  <div className="flex items-center">
+                    {selectedAnswer && isCorrect && <CheckCircle2 className="text-white" />}
+                    {selectedAnswer && isSel && !isCorrect && <XCircle className="text-white" />}
+                  </div>
                 </button>
               );
             })}
